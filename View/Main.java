@@ -1,6 +1,8 @@
+package View;
+
 public class Main {
     public static void main(String[] args) {
-        new View.Display();
+        new Display();
 
     }
     //kode her og her
