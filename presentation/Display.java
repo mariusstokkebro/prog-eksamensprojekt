@@ -1,6 +1,5 @@
-package View;
+package presentation;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
