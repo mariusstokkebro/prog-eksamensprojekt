@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="rettet i noget data">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/Display.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Media.java" afterDir="false" />
-    </list>
+    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="begyndt at sætte lidt op af GUI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +57,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669723342403</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="begyndt at sætte lidt op af GUI">
+      <created>1670252551726</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670252551728</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -80,6 +81,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fået rettet nogle ting og begyndt at sætte data op" />
     <MESSAGE value="rettet i noget data" />
-    <option name="LAST_COMMIT_MESSAGE" value="rettet i noget data" />
+    <MESSAGE value="begyndt at sætte lidt op af GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="begyndt at sætte lidt op af GUI" />
   </component>
 </project>
