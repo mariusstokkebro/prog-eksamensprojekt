@@ -54,6 +54,19 @@ public class Media {
 
     }
 
+        List movieList() {
 
+        return films;
+        }
+
+        List seriesList() {
+
+        return series;
+        }
+
+        List mediaList() {
+
+        return media;
+        }
 
 }
