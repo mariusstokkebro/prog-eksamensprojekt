@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="rettet i noget data">
+    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="fået rettet nogle ting og begyndt at sætte data op">
+      <change afterPath="$PROJECT_DIR$/Source/Data/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_13_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_13_02__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/Display.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Data/DataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Data/DataAccess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +31,7 @@
   </component>
   <component name="ProjectId" id="2Hy7NTK0R2zUvWklc9IVkj6L5kV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -56,14 +60,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669637579157</updated>
     </task>
-    <task id="LOCAL-00002" summary="rettet i noget data">
-      <created>1669723342403</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1669723342403</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -79,7 +76,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fået rettet nogle ting og begyndt at sætte data op" />
-    <MESSAGE value="rettet i noget data" />
-    <option name="LAST_COMMIT_MESSAGE" value="rettet i noget data" />
+    <option name="LAST_COMMIT_MESSAGE" value="fået rettet nogle ting og begyndt at sætte data op" />
   </component>
 </project>
