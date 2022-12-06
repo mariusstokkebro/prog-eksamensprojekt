@@ -79,7 +79,7 @@ public class Display implements ActionListener {
         //Titel billede
         BufferedImage popcornimg = null;
         try {
-            popcornimg = ImageIO.read(new File("/Users/casperpilgaard/Downloads/Popcorn_Time_logo.png"));
+            popcornimg = ImageIO.read(new File(getClass().getResource("/Popcorn_Time_logo.png").getFile()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class Display implements ActionListener {
         panel.add(title);
 
         //Picture
-        ImageIcon imageIcon = new ImageIcon("/Users/casperpilgaard/Downloads/Popcorn_Time_logo.png/");
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Popcorn_Time_logo.png"));
         JLabel label = new JLabel();
         label.setBounds(630, 300, 256, 256);
         label.setIcon(imageIcon);

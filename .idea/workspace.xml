@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="fikset pisset">
-      <change beforePath="$PROJECT_DIR$/Source/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Main.java" afterDir="false" />
+    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="UI START">
+      <change afterPath="$PROJECT_DIR$/Resources/Popcorn_Time_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/presentation/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Display.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +45,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Resources" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="presentation" />
     </key>
@@ -113,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670339094965</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="UI START">
+      <created>1670339204230</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670339204230</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,6 +144,7 @@
     <MESSAGE value="begyndt at sætte lidt op af GUI" />
     <MESSAGE value="fjernet presentation" />
     <MESSAGE value="fikset pisset" />
-    <option name="LAST_COMMIT_MESSAGE" value="fikset pisset" />
+    <MESSAGE value="UI START" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI START" />
   </component>
 </project>
