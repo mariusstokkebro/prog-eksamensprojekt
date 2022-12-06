@@ -1,0 +1,34 @@
+Index: Data/DataAccess.java
+===================================================================
+diff --git a/Data/DataAccess.java b/Data/DataAccess.java
+--- a/Data/DataAccess.java	
++++ b/Data/DataAccess.java	
+@@ -1,15 +1,19 @@
+ package Data;
+ 
++import javax.swing.*;
+ import java.io.File;
+ import java.io.FileNotFoundException;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Scanner;
+ 
+-public class DataAccess {
++public class DataAccess extends JFrame {
+ 
+     public String path;
+ 
++    JFrame frame;
++    JLabel displayField;
++    ImageIcon Picture;
+     public DataAccess(String path) {
+         this.path = path;
+     }
+@@ -33,5 +37,7 @@
+         return data;
+     }
+ 
++    public void Picture(){
+ 
++    }
+ }
