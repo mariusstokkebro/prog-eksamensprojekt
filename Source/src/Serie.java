@@ -7,7 +7,7 @@ public class Serie  extends Medier{
     private double rating;
     private String episode;
 
-    public Serie(String name, int year, String genre, double rating, String episode) {
+    public Serie(String name, String year, String genre, double rating, String episode) {
         super(name,year,genre,rating);
         this.episode = episode;
     }
