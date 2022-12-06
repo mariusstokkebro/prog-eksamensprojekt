@@ -1,6 +1,6 @@
 package src;
 
-public class Serie {
+public class Serie  extends Medier{
     private String name;
     private int year;
     private String[] genre;
@@ -8,10 +8,10 @@ public class Serie {
     private String episode;
 
     public Serie(String name, int year, String genre, double rating, String episode) {
-        this.name = name;
-        this.year = year;
-        this.genre = genre.split(",");
-        this.rating = rating;
+        super(name,year,genre,rating);
         this.episode = episode;
+    }
+    public String getEpisode(){
+        return episode;
     }
 }

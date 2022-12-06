@@ -1,5 +1,4 @@
 package Data;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,17 +7,19 @@ import java.util.Scanner;
 
 public class DataAccess {
 
-    public String path;
+    public String fileName;
 
-    public DataAccess(String path) {
-        this.path = path;
+    public DataAccess(String fileName) {
+        this.fileName = fileName;
     }
 
     public List<String> load() {
 
             List<String> data = new ArrayList<String>();
             try {
-            File file = new File(path);
+                System.out.println(fileName);
+            File file = new File(fileName);
+
             Scanner s = new Scanner(file);
 
             while(s.hasNextLine()) {

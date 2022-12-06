@@ -1,23 +1,22 @@
 package src;
-
+import Data.DataAccess;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Media {
 
     List<Film> films;
     List<Serie> series;
-    List<String> media;
+    List<String> medier;
     public Media() {
 
         List<Film> films = new ArrayList<>();
         List<Serie> serie = new ArrayList<>();
 
-    Data.DataAccess filmsData = new Data.DataAccess("/Users/casperpilgaard/Downloads/Data/film.txt");
-    Data.DataAccess seriesData = new Data.DataAccess("/Users/casperpilgaard/Downloads/Data/serier.txt");
+    DataAccess filmsData = new DataAccess("film.txt");
+    DataAccess seriesData = new DataAccess("serier.txt");
 
-    List<String> media = new ArrayList<String>();
+    List<Medier> medier = new ArrayList<>();
 
     List<String> filmData = filmsData.load();
         for (String element : filmData) {
@@ -29,6 +28,7 @@ public class Media {
         Film film1 = new Film(movieName, year, genre, rating);
 
         films.add(film1);
+        medier.add(film1);
 
     }
 
@@ -43,7 +43,7 @@ public class Media {
             Serie serie1 = new Serie(seriesName, year, genre, rating, episodes);
 
             serie.add(serie1);
-
+            medier.add(serie1);
 
         }
 
@@ -56,17 +56,17 @@ public class Media {
 
         List movieList() {
 
-        return films;
+            return films;
         }
 
         List seriesList() {
 
-        return series;
+            return series;
         }
 
         List mediaList() {
 
-        return media;
+            return medier;
         }
 
 }
