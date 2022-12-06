@@ -11,7 +11,7 @@ public class Media {
 
     List<Film> films;
     List<Serie> series;
-    List<String> medier;
+    List<Medier> medier;
     public Media() {
 
         List<Film> films = new ArrayList<>();
