@@ -15,7 +15,7 @@ public class Media {
     public Media() {
 
         List<Film> films = new ArrayList<>();
-        List<Serie> serie = new ArrayList<>();
+        List<Serie> series = new ArrayList<>();
 
     DataAccess filmsData = new DataAccess("film.txt");
     DataAccess seriesData = new DataAccess("serier.txt");
@@ -26,7 +26,7 @@ public class Media {
         for (String element : filmData) {
         String[] line = element.split(";");
         String movieName = line[0];
-        int year = Integer.parseInt(line[1].trim());
+        String year = line[1].trim();
         String genre = line[2];
         double rating = Double.parseDouble(line[3].trim().replace(",", "."));
         Film film1 = new Film(movieName, year, genre, rating);
@@ -40,19 +40,23 @@ public class Media {
         for (String element : serieData) {
             String[] line = element.split(";");
             String seriesName = line[0];
-            int year = Integer.parseInt(line[1].trim());
+            String year = line[1].trim();
             String genre = line[2];
             double rating = Double.parseDouble(line[3].trim().replace(",", "."));
             String episodes = line[4];
             Serie serie1 = new Serie(seriesName, year, genre, rating, episodes);
 
-            serie.add(serie1);
+            series.add(serie1);
             medier.add(serie1);
 
         }
 
         for (Film film : films) {
             System.out.println(film.getName());
+        }
+
+        for (Serie ser : series) {
+            System.out.println(ser.getName());
         }
 
 
