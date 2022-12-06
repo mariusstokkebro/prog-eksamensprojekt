@@ -1,0 +1,75 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,10 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="fået rettet nogle ting og begyndt at sætte data op">
++    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="rykket main ind i view">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Media.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Data/DataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DataAccess.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -26,18 +28,20 @@
+   </component>
+   <component name="ProjectId" id="2Hy7NTK0R2zUvWklc9IVkj6L5kV" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++    <OptionsSetting value="false" id="Update" />
+     <ConfirmationsSetting value="2" id="Add" />
+   </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "last_opened_file_path": "C:/Users/Madso/OneDrive/Dokumenter/GitHub/prog-eksamensprojekt"
+   }
+-}</component>
++}]]></component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -47,14 +51,6 @@
+       <option name="presentableId" value="Default" />
+       <updated>1669245434609</updated>
+     </task>
+-    <task id="LOCAL-00001" summary="fået rettet nogle ting og begyndt at sætte data op">
+-      <created>1669637579157</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1669637579157</updated>
+-    </task>
+-    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -68,8 +64,4 @@
+       </map>
+     </option>
+   </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="fået rettet nogle ting og begyndt at sætte data op" />
+-    <option name="LAST_COMMIT_MESSAGE" value="fået rettet nogle ting og begyndt at sætte data op" />
+-  </component>
+ </project>
+\ No newline at end of file
