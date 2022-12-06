@@ -1,6 +1,5 @@
 package presentation;
 
-import Data.Image;
 import src.Media;
 
 public class Main {

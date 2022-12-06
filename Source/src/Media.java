@@ -1,5 +1,9 @@
 package src;
 import Data.DataAccess;
+import src.Film;
+import src.Medier;
+import src.Serie;
+
 import java.util.ArrayList;
 import java.util.List;
 

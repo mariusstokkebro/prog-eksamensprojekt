@@ -18,7 +18,7 @@ public class DataAccess {
             List<String> data = new ArrayList<String>();
             try {
                 System.out.println(fileName);
-            File file = new File(fileName);
+            File file = new File(getClass().getResource( "/" + fileName).getFile());
 
             Scanner s = new Scanner(file);
 
