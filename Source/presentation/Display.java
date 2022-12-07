@@ -97,11 +97,11 @@ List<Medier> mediaList;
 
         //Filmplakater
         int posx = 80;
-        int posy = 200;
+        int posy = 0;
 
         for (int i = 0; i < mediaList.size(); i++) {
             System.out.println(mediaList.get(i).getName());
-            if (i+1 % 7 == 0) {
+            if (i % 7 == 0) {
                 posx = 80;
                 posy += 200;
             }
