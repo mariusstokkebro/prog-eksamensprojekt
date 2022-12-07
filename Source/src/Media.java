@@ -18,14 +18,17 @@ public class Media {
     DataAccess seriesData;
     public Media() {
 
-        List<Film> films = new ArrayList<>();
-        List<Serie> series = new ArrayList<>();
+        films = new ArrayList<>();
+        series = new ArrayList<>();
 
         filmsData = new DataAccess("film.txt");
         seriesData = new DataAccess("serier.txt");
 
-        List<Medier> medier = new ArrayList<>();
+        medier = new ArrayList<>();
 
+        filmData();
+        serieData();
+        mediaData();
     }
 
     public void filmData() {
@@ -39,6 +42,7 @@ public class Media {
             double rating = Double.parseDouble(line[3].trim().replace(",", "."));
             Film film1 = new Film(movieName, year, genre, rating);
             films.add(film1);
+
 
         }
     }
@@ -60,9 +64,6 @@ public class Media {
 
     public void mediaData() {
 
-        serieData();
-        filmData();
-
         for(int i = 0; i<series.size();i++) {
             medier.add(series.get(i));
 
@@ -74,11 +75,9 @@ public class Media {
 
         }
 
-
         //Sorterer listen, tager to parameterer og sammenligner dem i forhold til navnets alfabetiske rækkefølge
         Collections.sort(medier, (p1, p2) -> p1.getName().compareTo(p2.getName()));
 
-        System.out.println(getMediaList());
 
     }
 
@@ -92,10 +91,10 @@ public class Media {
         return series;
     }
 
-    public List<Medier> getMediaList() {
-        List<Medier> list = new ArrayList<Medier>();
+    public List getMediaList() {
 
-        return list;
+
+        return medier;
     }
 
 }
