@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -91,35 +92,32 @@ List<Medier> mediaList;
         JLabel popcorn = new JLabel(popcornicon);
         popcorn.setBounds(810, 20, 96, 96);
         jp1.add(popcorn);
-        frame.setVisible(true);
+
 
 
         //Filmplakater
         int posx = 80;
-        int posy = 100;
+        int posy = 200;
 
         for (int i = 0; i < mediaList.size(); i++) {
             System.out.println(mediaList.get(i).getName());
-            if (i % 6 == 0) {
-                posx = 100;
-                posy += 100;
+            if (i+1 % 7 == 0) {
+                posx = 80;
+                posy += 200;
             }
-            Image poster = null;
-            try {
-                poster = ImageIO.read(new File(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg").getFile()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Image scaledPoster = poster;
-            scaledPoster.getScaledInstance(96, 96, 4);
 
-            ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
-            JLabel label = new JLabel();
-            label.setIcon(img);
-            label.setBounds(posx, posy, 100, 150);
-            jp1.add(label);
+
+
+
+            ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName()+".jpg"));
+            JButton poster = new JButton(img);
+            poster.setBorder(null);
+            poster.setContentAreaFilled(false);
+            poster.setBounds(posx, posy, 100, 150);
+            jp1.add(poster);
             posx += 200;
         }
+        frame.setVisible(true);
     }
 
 
