@@ -63,13 +63,18 @@ public class Media {
             serieData();
             filmData();
 
-            medier = series;
+            for(int i = 0; i<series.size();i++) {
+            medier.add(series.get(i));
+
+            }
 
 
+            for(int u = 0; u<films.size();u++) {
+                medier.add(films.get(u));
+
+            }
 
 
-
-        }
         //Sorterer listen, tager to parameterer og sammenligner dem i forhold til navnets alfabetiske rækkefølge
         Collections.sort(medier, (p1, p2) -> p1.getName().compareTo(p2.getName()));
 

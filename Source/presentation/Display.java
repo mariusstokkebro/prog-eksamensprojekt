@@ -20,7 +20,7 @@ List<Medier> mediaList;
     public Display() {
         Media media = new Media();
 
-
+        media.mediaData();
 
 
 
