@@ -30,7 +30,7 @@ public class Media {
 
     public void filmData() {
 
-    List<String> filmData = filmsData.load();
+        List<String> filmData = filmsData.load();
         for (String element : filmData) {
             String[] line = element.split(";");
             String movieName = line[0];
@@ -42,37 +42,37 @@ public class Media {
 
         }
     }
-        public void serieData() {
-            List<String> serieData = seriesData.load();
-            for (String element : serieData) {
-                String[] line = element.split(";");
-                String seriesName = line[0];
-                String year = line[1].trim();
-                String genre = line[2];
-                double rating = Double.parseDouble(line[3].trim().replace(",", "."));
-                String episodes = line[4];
-                Serie serie1 = new Serie(seriesName, year, genre, rating, episodes);
+    public void serieData() {
+        List<String> serieData = seriesData.load();
+        for (String element : serieData) {
+            String[] line = element.split(";");
+            String seriesName = line[0];
+            String year = line[1].trim();
+            String genre = line[2];
+            double rating = Double.parseDouble(line[3].trim().replace(",", "."));
+            String episodes = line[4];
+            Serie serie1 = new Serie(seriesName, year, genre, rating, episodes);
 
-                series.add(serie1);
-            }
+            series.add(serie1);
+        }
+
+    }
+
+    public void mediaData() {
+
+        serieData();
+        filmData();
+
+        for(int i = 0; i<series.size();i++) {
+            medier.add(series.get(i));
 
         }
 
-        public void mediaData() {
 
-            serieData();
-            filmData();
+        for(int u = 0; u<films.size();u++) {
+            medier.add(films.get(u));
 
-            for(int i = 0; i<series.size();i++) {
-            medier.add(series.get(i));
-
-            }
-
-
-            for(int u = 0; u<films.size();u++) {
-                medier.add(films.get(u));
-
-            }
+        }
 
 
         //Sorterer listen, tager to parameterer og sammenligner dem i forhold til navnets alfabetiske rækkefølge
@@ -82,20 +82,20 @@ public class Media {
 
     }
 
-        public List getFilmList() {
+    public List getFilmList() {
 
-            return films;
-        }
+        return films;
+    }
 
-        public List getSeriesList() {
+    public List getSeriesList() {
 
-            return series;
-        }
+        return series;
+    }
 
-        public List<Medier> getMediaList() {
-            List<Medier> list = new ArrayList<Medier>();
+    public List<Medier> getMediaList() {
+        List<Medier> list = new ArrayList<Medier>();
 
-            return list;
-        }
+        return list;
+    }
 
 }
