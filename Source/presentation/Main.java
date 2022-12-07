@@ -1,13 +1,13 @@
 package presentation;
 
 import src.Media;
+import Data.Image;
 
 public class Main {
     public static void main(String[] args) {
 
         Display display = new Display();
-        display.titleScreen();
-        Media media = new Media();
+        //display.titleScreen();
         //Image i = new Image();
     }
     //kode her og her
