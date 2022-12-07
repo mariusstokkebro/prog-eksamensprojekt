@@ -24,7 +24,6 @@ public class DataAccess {
                 data.add(s.nextLine());
             }
         }
-
         catch(FileNotFoundException e) {
                 System.out.println(e.getMessage());
             }

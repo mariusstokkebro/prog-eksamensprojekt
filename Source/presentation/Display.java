@@ -1,6 +1,7 @@
 package presentation;
 
 import src.Film;
+import src.Medier;
 import src.Media;
 
 import java.awt.*;
@@ -13,13 +14,16 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.util.List;
 
-public class Display implements ActionListener {
+public class Display{
 
-
-
+List<Medier> mediaList;
     public Display() {
+        Media media = new Media();
 
-        List<Film> mediaList = new ArrayList<Film>();
+
+
+
+
 
     }
 
@@ -92,28 +96,45 @@ public class Display implements ActionListener {
         jp1.add(popcorn);
         frame.setVisible(true);
 
+
+
+        int posx = 100;
+        int posy = 50;
+
+        for (int i = 0; i < mediaList.size(); i++) {
+            if (i % 6 == 0) {
+                posx = 100;
+                posy += 30;
+            }
+
+            ImageIcon img = new ImageIcon(getClass().getResource("/filmplakater/" + mediaList.get(i).getName()));
+            JLabel label = new JLabel();
+            label.setIcon(img);
+            label.setBounds(posx, posy, 100, 100);
+        }
+
+
+
     }
 
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 
     void titleScreen() {
-        JFrame openScreen = new JFrame();
+        JFrame openScreen = new JFrame("Popkorn Tid");
         openScreen.setSize(1980, 1080);
 
         openScreen.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        openScreen.setTitle("Popkorn tid");
+
 
 
         JPanel panel = new JPanel();
+        openScreen.add(panel);
         panel.setBackground(Color.black);
         panel.setLayout(null);
 
-        openScreen.add(panel);
+
 
         //Title
         JLabel title = new JLabel("Popkorn Tid");
@@ -145,5 +166,12 @@ public class Display implements ActionListener {
     }
 
 
+
+
+
+
+
 }
+
+
 
