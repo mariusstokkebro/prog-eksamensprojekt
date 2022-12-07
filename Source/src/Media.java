@@ -67,7 +67,7 @@ public class Media {
             medier.add(series.get(i));
 
             }
-
+            //SMUUSHSHSUHSUHS
 
             for(int u = 0; u<films.size();u++) {
                 medier.add(films.get(u));
