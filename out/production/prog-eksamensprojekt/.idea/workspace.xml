@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="begyndt at sætte lidt op af GUI">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="fikset pisset">
+      <change beforePath="$PROJECT_DIR$/Source/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +43,11 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="presentation" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -87,7 +92,28 @@
       <option name="project" value="LOCAL" />
       <updated>1670338409403</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fjernet presentation">
+      <created>1670338559167</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670338559167</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fikset pisset">
+      <created>1670338869011</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1670338869012</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fikset pisset">
+      <created>1670339094965</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670339094965</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,6 +131,8 @@
     <MESSAGE value="fået rettet nogle ting og begyndt at sætte data op" />
     <MESSAGE value="rykket main ind i view" />
     <MESSAGE value="begyndt at sætte lidt op af GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="begyndt at sætte lidt op af GUI" />
+    <MESSAGE value="fjernet presentation" />
+    <MESSAGE value="fikset pisset" />
+    <option name="LAST_COMMIT_MESSAGE" value="fikset pisset" />
   </component>
 </project>
