@@ -22,6 +22,11 @@ public class Display{
 List<Medier> mediaList;
 List<Medier> filmList;
 List<Medier> seriesList;
+
+JFrame frame;
+JPanel mainPanel;
+GridBagConstraints constraints;
+
     public Display() {
         Media media = new Media();
 
@@ -42,13 +47,12 @@ List<Medier> seriesList;
 
     }
 
-    void makeAllPosters(List<Medier> list, JPanel panel, GridBagConstraints cons) {
+    void makeAllPosters(List<Medier> list) {
 
         int posx = 0;
         int posy = 2;
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getName());
             if ((i % 7 == 0) && i!=0) {
                 posx = 0;
                 posy++;
@@ -58,25 +62,23 @@ List<Medier> seriesList;
             JButton poster = new JButton(img);
             poster.setBorder(null);
             poster.setContentAreaFilled(false);
-            cons.gridx = posx;
-            cons.gridy = posy;
-            panel.add(poster, cons);
+            constraints.gridx = posx;
+            constraints.gridy = posy;
+            mainPanel.add(poster, constraints);
             posx++;
 
         }
     }
 
+
+
     void homeScreen() {
-        JFrame frame = new JFrame("Popkorn tid");
-        JPanel mainPanel = new JPanel(new GridBagLayout());
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-
-
+        frame = new JFrame("Popkorn tid");
+        mainPanel = new JPanel(new GridBagLayout());
         frame.setBackground(Color.black);
 
 
-        GridBagConstraints constraints = new GridBagConstraints();
+        constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 0.1;
@@ -84,16 +86,7 @@ List<Medier> seriesList;
         constraints.insets = new Insets(5, 5, 5, 5);
 
         mainPanel.setBackground(Color.black);
-
-        GridBagConstraints cons = new GridBagConstraints();
-        cons.anchor = GridBagConstraints.NORTH;
-        cons.fill = GridBagConstraints.HORIZONTAL;
-        cons.insets = new Insets(5, 5, 5, 5);
-
         frame.setSize(800, 800);
-
-
-
         frame.add(mainPanel);
 
 
@@ -109,7 +102,8 @@ List<Medier> seriesList;
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                makeAllPosters(mediaList,mainPanel,constraints);
+                makeAllPosters(mediaList);
+
             }
         });
         mainPanel.add(but1, constraints);
@@ -119,13 +113,13 @@ List<Medier> seriesList;
         constraints.gridx = 1;
         constraints.gridy = 0;
         mainPanel.add(but2, constraints);
-        but1.addActionListener(new ActionListener() {
+        but2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                makeAllPosters(filmList,mainPanel,constraints);
-
+                makeAllPosters(filmList);
+                frame.setVisible(true);
             }
         });
         //Serier knap
@@ -133,13 +127,13 @@ List<Medier> seriesList;
         constraints.gridx = 2;
         constraints.gridy = 0;
         mainPanel.add(but3, constraints);
-        but1.addActionListener(new ActionListener() {
+        but3.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
-                makeAllPosters(seriesList,mainPanel,constraints);
-
+                makeAllPosters(seriesList);
+                frame.setVisible(true);
             }
         });
 
@@ -170,7 +164,7 @@ List<Medier> seriesList;
         JLabel popcorn = new JLabel(popcornicon);
         constraints.gridx = 4;
         constraints.gridy = 0;
-        mainPanel.add(popcorn, cons);
+        mainPanel.add(popcorn, constraints);
 
 
 
@@ -185,39 +179,37 @@ List<Medier> seriesList;
         sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         frame.add(sp);
 
+
         frame.setVisible(true);
     }
 
     void titleScreen() {
-        JFrame openScreen = new JFrame("Popkorn Tid");
-        openScreen.setSize(1980, 1080);
-
-        openScreen.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        JPanel panel = new JPanel();
-        openScreen.add(panel);
-        panel.setBackground(Color.black);
-        panel.setLayout(null);
+        frame = new JFrame("Popkorn Tid");
+        frame.setSize(800, 800);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainPanel = new JPanel();
+        frame.add(mainPanel);
+        mainPanel.setBackground(Color.black);
+        mainPanel.setLayout(null);
 
         //Title
         JLabel title = new JLabel("Popkorn Tid");
         title.setForeground(Color.gray);
         title.setFont(title.getFont().deriveFont(0,40));
-        panel.add(title);
+        mainPanel.add(title);
 
         //Picture
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Popcorn_Time_logo.png"));
         JLabel label = new JLabel();
         label.setIcon(imageIcon);
-        panel.add(label);
-
-        openScreen.setVisible(true);
+        mainPanel.add(label);
+        frame.setVisible(true);
 
         //Go to Home screen after 4 seconds
 
         Timer t = new Timer(4000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openScreen.setVisible(false);
+                frame.setVisible(false);
                 homeScreen();
             }
         });
