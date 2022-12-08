@@ -5,6 +5,7 @@ import src.Medier;
 import src.Serie;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,9 +43,8 @@ public class Media {
             double rating = Double.parseDouble(line[3].trim().replace(",", "."));
             Film film1 = new Film(movieName, year, genre, rating);
             films.add(film1);
-
-
         }
+        Collections.sort(films, (p1, p2) -> p1.getName().compareTo(p2.getName()));
     }
     public void serieData() {
         List<String> serieData = seriesData.load();
@@ -59,6 +59,7 @@ public class Media {
 
             series.add(serie1);
         }
+        Collections.sort(series, (p1, p2) -> p1.getName().compareTo(p2.getName()));
 
     }
 

@@ -3,6 +3,7 @@ package presentation;
 import src.Film;
 import src.Medier;
 import src.Media;
+import src.Serie;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,11 +19,48 @@ import java.util.List;
 public class Display{
 
 List<Medier> mediaList;
+List<Medier> filmList;
+List<Medier> seriesList;
     public Display() {
         Media media = new Media();
 
         mediaList = media.getMediaList();
+        filmList = media.getFilmList();
+        seriesList = media.getSeriesList();
 
+    }
+
+    JButton makeButton(String text, int posx, int posy, int height, int width, int fontSize, Color color) {
+        JButton button = new JButton(text);
+        button.setForeground(color);
+        button.setBounds(posx, posy, height, width);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
+        button.setFont(button.getFont().deriveFont(0, fontSize));
+        return button;
+
+    }
+
+    void makeAllPosters(List<Medier> list, JPanel panel) {
+
+
+        int posx = 80;
+        int posy = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getName());
+            if (i % 7 == 0) {
+                posx = 80;
+                posy += 200;
+            }
+            ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName()+".jpg"));
+            JButton poster = new JButton(img);
+            poster.setBorder(null);
+            poster.setContentAreaFilled(false);
+            poster.setBounds(posx, posy, 100, 150);
+            panel.add(poster);
+            posx += 200;
+        }
     }
 
     void homeScreen() {
@@ -36,38 +74,23 @@ List<Medier> mediaList;
         jp1.setLayout(null);
 
 
-        frame.setSize(1920, 1080);
+        frame.setSize(1980, 1080);
 
         frame.add(jp1);
 
-        int fontSize = 20;
 
 
         //Medier knap
-        JButton but1 = new JButton("Medier");
-        but1.setForeground(Color.red);
-        but1.setBounds(50, 50, 100, 50);
-        but1.setBorder(null);
-        but1.setContentAreaFilled(false);
-        but1.setFont(but1.getFont().deriveFont(0, fontSize));
+        JButton but1 = makeButton("Medier", 50, 50, 100, 50, 20, Color.red);
         jp1.add(but1);
+        //Medier knap
 
         //Film knap
-        JButton but2 = new JButton("Film");
-        but2.setForeground(Color.red);
-        but2.setBounds(200, 50, 100, 50);
-        but2.setBorder(null);
-        but2.setContentAreaFilled(false);
-        but2.setFont(but2.getFont().deriveFont(0, fontSize));
+        JButton but2 = makeButton("Film", 200, 50, 100, 50, 20, Color.red);
         jp1.add(but2);
 
         //Serier knap
-        JButton but3 = new JButton("Serier");
-        but3.setForeground(Color.red);
-        but3.setBounds(350, 50, 100, 50);
-        but3.setBorder(null);
-        but3.setContentAreaFilled(false);
-        but3.setFont(but3.getFont().deriveFont(0, fontSize));
+        JButton but3 = makeButton("Serier", 350, 50, 100, 50, 20, Color.red);
         jp1.add(but3);
 
 
@@ -96,28 +119,20 @@ List<Medier> mediaList;
 
 
         //Filmplakater
-        int posx = 80;
-        int posy = 0;
+        makeAllPosters(filmList, jp1);
 
-        for (int i = 0; i < mediaList.size(); i++) {
-            System.out.println(mediaList.get(i).getName());
-            if (i % 7 == 0) {
-                posx = 80;
-                posy += 200;
-            }
-
-
-
-
-            ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName()+".jpg"));
-            JButton poster = new JButton(img);
-            poster.setBorder(null);
-            poster.setContentAreaFilled(false);
-            poster.setBounds(posx, posy, 100, 150);
-            jp1.add(poster);
-            posx += 200;
-        }
+        //Scrollbar
+        /*JScrollPane scrollbar = new JScrollPane(jp1);
+        scrollbar.setVerticalScrollBarPolicy(scrollbar.VERTICAL_SCROLLBAR_ALWAYS);
+        jp1.add(scrollbar, BorderLayout.EAST);*/
         frame.setVisible(true);
+
+
+
+
+
+
+
     }
 
 
