@@ -104,7 +104,14 @@ List<Medier> seriesList;
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        but1.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                makeAllPosters(mediaList,mainPanel,constraints);
+            }
+        });
         mainPanel.add(but1, constraints);
 
         //Film knap
@@ -112,13 +119,29 @@ List<Medier> seriesList;
         constraints.gridx = 1;
         constraints.gridy = 0;
         mainPanel.add(but2, constraints);
+        but1.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                makeAllPosters(filmList,mainPanel,constraints);
+
+            }
+        });
         //Serier knap
         JButton but3 = makeButton("Serier", 50, 25, 25, Color.red);
         constraints.gridx = 2;
         constraints.gridy = 0;
         mainPanel.add(but3, constraints);
+        but1.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //your actions
+                makeAllPosters(seriesList,mainPanel,constraints);
+
+            }
+        });
 
         //Titel med 'Popkorn tid'
         JLabel title = new JLabel("Popkorn Tid");
@@ -152,7 +175,7 @@ List<Medier> seriesList;
 
 
         //Filmplakater
-        makeAllPosters(mediaList, mainPanel, constraints);
+
 
 
 
