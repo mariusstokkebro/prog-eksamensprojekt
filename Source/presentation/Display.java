@@ -19,13 +19,13 @@ import java.util.List;
 
 public class Display{
 
-List<Medier> mediaList;
-List<Medier> filmList;
-List<Medier> seriesList;
+    List<Medier> mediaList;
+    List<Medier> filmList;
+    List<Medier> seriesList;
 
-JFrame frame;
-JPanel mainPanel;
-GridBagConstraints constraints;
+    JFrame frame;
+    JPanel mainPanel;
+    GridBagConstraints constraints;
 
     public Display() {
         Media media = new Media();
@@ -70,14 +70,18 @@ GridBagConstraints constraints;
         }
     }
 
-
+    JScrollPane makeScrollPane() {
+        JScrollPane sp = new JScrollPane(mainPanel);
+        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        return sp;
+    }
 
     void homeScreen() {
         frame = new JFrame("Popkorn tid");
         mainPanel = new JPanel(new GridBagLayout());
         frame.setBackground(Color.black);
-
-
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -88,8 +92,6 @@ GridBagConstraints constraints;
         mainPanel.setBackground(Color.black);
         frame.setSize(800, 800);
         frame.add(mainPanel);
-
-
 
 
         //Medier knap
@@ -174,10 +176,7 @@ GridBagConstraints constraints;
 
 
         //Scrollbar
-        JScrollPane sp = new JScrollPane(mainPanel);
-        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        frame.add(sp);
+        frame.add(makeScrollPane());
 
 
         frame.setVisible(true);
