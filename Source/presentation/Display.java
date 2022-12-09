@@ -57,11 +57,15 @@ public class Display{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int posx = 0;
-                int posy = 2;
-
+                int posy = 1;
+                int picture = 0;
             for(int i = 0;i<mediaList.size();i++){
+                if ((picture % 7 == 0) && picture!=0) {
+                    posx = 0;
+                    posy++;
 
-                if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
+                }
+                if(mediaList.get(i).getName().contains(textField.getText())){
                     ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                     JButton poster = new JButton(img);
                     poster.setBorder(null);
@@ -70,12 +74,9 @@ public class Display{
                     constraints.gridy = posy;
                     mainPanel.add(poster, constraints);
                     posx++;
+                    picture++;
                 }
-                if ((i % 7 == 0) && i!=0) {
-                    posx = 0;
-                    posy++;
 
-                }
                 String[] genre = mediaList.get(i).getGenre();
                 for(int u = 0;u<genre.length;u++){
                     if((Objects.equals(textField.getText(), genre[u]))){
@@ -87,6 +88,7 @@ public class Display{
                         constraints.gridy = posy;
                         mainPanel.add(poster, constraints);
                         posx++;
+                        picture++;
                     }
                 }
 
@@ -146,7 +148,10 @@ public class Display{
         frame.setSize(800, 800);
         frame.add(mainPanel);
 
-
+        JTextField textField = maketextField(20);
+        constraints.gridx = 5;
+        constraints.gridy = 0;
+        mainPanel.add(textField, constraints);
         //Medier knap
         JButton but1 = makeButton("Medier", 50, 25, 25, Color.red);
         constraints.gridx = 0;
@@ -222,10 +227,7 @@ public class Display{
         mainPanel.add(popcorn, constraints);
 
 
-        JTextField textField = maketextField(20);
-        constraints.gridx = 5;
-        constraints.gridy = 0;
-        mainPanel.add(textField, constraints);
+
 
         //Filmplakater
 

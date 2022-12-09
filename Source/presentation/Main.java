@@ -11,7 +11,7 @@ public class Main {
 
 
         display.homeScreen();
-        //Image i = new Image();
+        //Image i = new Image();s
     }
     //kode her og her
 }

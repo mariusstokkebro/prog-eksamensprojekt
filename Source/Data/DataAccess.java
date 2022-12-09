@@ -1,4 +1,6 @@
 package Data;
+import src.Medier;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -29,6 +31,10 @@ public class DataAccess {
             }
 
         return data;
+    }
+    public void save(List<Medier> favoritList){
+        File myObj = new File("favoritList.txt");
+
     }
 
 
