@@ -16,6 +16,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Display{
 
@@ -46,7 +49,55 @@ GridBagConstraints constraints;
         return button;
 
     }
+    JTextField maketextField(int width){
+        JTextField textField = new JTextField(width);
 
+        textField.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int posx = 0;
+                int posy = 2;
+
+            for(int i = 0;i<mediaList.size();i++){
+
+                if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
+                    ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
+                    JButton poster = new JButton(img);
+                    poster.setBorder(null);
+                    poster.setContentAreaFilled(false);
+                    constraints.gridx = posx;
+                    constraints.gridy = posy;
+                    mainPanel.add(poster, constraints);
+                    posx++;
+                }
+                if ((i % 7 == 0) && i!=0) {
+                    posx = 0;
+                    posy++;
+
+                }
+                String[] genre = mediaList.get(i).getGenre();
+                for(int u = 0;u<genre.length;u++){
+                    if((Objects.equals(textField.getText(), genre[u]))){
+                        ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
+                        JButton poster = new JButton(img);
+                        poster.setBorder(null);
+                        poster.setContentAreaFilled(false);
+                        constraints.gridx = posx;
+                        constraints.gridy = posy;
+                        mainPanel.add(poster, constraints);
+                        posx++;
+                    }
+                }
+
+
+            }
+
+                frame.setVisible(true);
+            }
+        });
+        return textField;
+    }
     void makeAllPosters(List<Medier> list) {
 
         int posx = 0;
@@ -58,14 +109,16 @@ GridBagConstraints constraints;
                 posy++;
 
             }
-            ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName()+".jpg"));
-            JButton poster = new JButton(img);
-            poster.setBorder(null);
-            poster.setContentAreaFilled(false);
-            constraints.gridx = posx;
-            constraints.gridy = posy;
-            mainPanel.add(poster, constraints);
-            posx++;
+
+                ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName() + ".jpg"));
+                JButton poster = new JButton(img);
+                poster.setBorder(null);
+                poster.setContentAreaFilled(false);
+                constraints.gridx = posx;
+                constraints.gridy = posy;
+                mainPanel.add(poster, constraints);
+                posx++;
+
 
         }
     }
@@ -167,6 +220,10 @@ GridBagConstraints constraints;
         mainPanel.add(popcorn, constraints);
 
 
+        JTextField textField = maketextField(20);
+        constraints.gridx = 5;
+        constraints.gridy = 0;
+        mainPanel.add(textField, constraints);
 
         //Filmplakater
 
