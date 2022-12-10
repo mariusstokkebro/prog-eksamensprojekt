@@ -1,17 +1,14 @@
-package presentation;
+    package presentation;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
 
-public class Main {
-    public static void main(String[] args) {
+    public class Main {
+        public static void main(String[] args) {
 
-        Display display = new Display();
-
-
-        display.homeScreen();
-        //Image i = new Image();s
+            Display display = new Display();
+            //Image i = new Image();
+        }
+        //kode her og her
     }
-    //kode her og her
-}

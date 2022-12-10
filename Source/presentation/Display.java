@@ -26,9 +26,14 @@ public class Display{
     List<Medier> filmList;
     List<Medier> seriesList;
 
-    JFrame frame;
-    JPanel mainPanel;
-    GridBagConstraints constraints;
+    JFrame frame = new JFrame();
+    JPanel topPanel = new JPanel(new GridBagLayout());
+
+    JPanel posterPanel = new JPanel(new GridBagLayout());
+
+    JPanel mainPanel = new JPanel(new BorderLayout());
+
+    GridBagConstraints constraints = new GridBagConstraints();
 
     public Display() {
         Media media = new Media();
@@ -36,6 +41,29 @@ public class Display{
         mediaList = media.getMediaList();
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
+
+
+
+
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        topPanel.setBackground(Color.black);
+        frame.setSize(800, 800);
+        frame.add(mainPanel, BorderLayout.CENTER);
+        mainPanel.setPreferredSize(new Dimension(600, 600));
+        topPanel.setBackground(Color.BLACK);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(posterPanel, BorderLayout.SOUTH);
+        homeScreen();
+        makeAllPosters(mediaList);
+        posterPanel.setBackground(Color.BLACK);
+        posterPanel.setBorder(null);
+        mainPanel.add(makeScrollPane());
+
+        frame.setVisible(true);
+
 
     }
 
@@ -56,27 +84,29 @@ public class Display{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                posterPanel.removeAll();
+                posterPanel.revalidate();
+                posterPanel.repaint();
                 int posx = 0;
-                int posy = 1;
-                int picture = 0;
-            for(int i = 0;i<mediaList.size();i++){
-                if ((picture % 7 == 0) && picture!=0) {
-                    posx = 0;
-                    posy++;
+                int posy = 2;
 
-                }
-                if(mediaList.get(i).getName().contains(textField.getText())){
+            for(int i = 0;i<mediaList.size();i++){
+
+                if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
                     ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                     JButton poster = new JButton(img);
                     poster.setBorder(null);
                     poster.setContentAreaFilled(false);
                     constraints.gridx = posx;
                     constraints.gridy = posy;
-                    mainPanel.add(poster, constraints);
+                    posterPanel.add(poster, constraints);
                     posx++;
-                    picture++;
                 }
+                if ((i % 7 == 0) && i!=0) {
+                    posx = 0;
+                    posy++;
 
+                }
                 String[] genre = mediaList.get(i).getGenre();
                 for(int u = 0;u<genre.length;u++){
                     if((Objects.equals(textField.getText(), genre[u]))){
@@ -86,72 +116,59 @@ public class Display{
                         poster.setContentAreaFilled(false);
                         constraints.gridx = posx;
                         constraints.gridy = posy;
-                        mainPanel.add(poster, constraints);
+                        posterPanel.add(poster, constraints);
                         posx++;
-                        picture++;
                     }
                 }
 
 
             }
-
                 frame.setVisible(true);
             }
         });
         return textField;
     }
     void makeAllPosters(List<Medier> list) {
-
+        posterPanel.removeAll();
+        posterPanel.revalidate();
+        posterPanel.repaint();
         int posx = 0;
         int posy = 2;
-
         for (int i = 0; i < list.size(); i++) {
             if ((i % 7 == 0) && i!=0) {
                 posx = 0;
                 posy++;
 
             }
-
                 ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName() + ".jpg"));
                 JButton poster = new JButton(img);
                 poster.setBorder(null);
                 poster.setContentAreaFilled(false);
                 constraints.gridx = posx;
                 constraints.gridy = posy;
-                mainPanel.add(poster, constraints);
+                posterPanel.add(poster, constraints);
                 posx++;
-
-
         }
     }
 
     JScrollPane makeScrollPane() {
-        JScrollPane sp = new JScrollPane(mainPanel);
+        JScrollPane sp = new JScrollPane(posterPanel);
         sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        sp.setBorder(null);
         return sp;
     }
 
     void homeScreen() {
-        frame = new JFrame("Popkorn tid");
-        mainPanel = new JPanel(new GridBagLayout());
-        frame.setBackground(Color.black);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        constraints = new GridBagConstraints();
+
+
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 0.1;
         constraints.weightx = 1;
         constraints.insets = new Insets(5, 5, 5, 5);
 
-        mainPanel.setBackground(Color.black);
-        frame.setSize(800, 800);
-        frame.add(mainPanel);
 
-        JTextField textField = maketextField(20);
-        constraints.gridx = 5;
-        constraints.gridy = 0;
-        mainPanel.add(textField, constraints);
         //Medier knap
         JButton but1 = makeButton("Medier", 50, 25, 25, Color.red);
         constraints.gridx = 0;
@@ -162,23 +179,27 @@ public class Display{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
+                homeScreen();
                 makeAllPosters(mediaList);
-
+                topPanel.validate();
+                frame.setVisible(true);
             }
         });
-        mainPanel.add(but1, constraints);
+        topPanel.add(but1, constraints);
 
         //Film knap
         JButton but2 = makeButton("Film", 50, 25, 25, Color.red);
         constraints.gridx = 1;
         constraints.gridy = 0;
-        mainPanel.add(but2, constraints);
+        topPanel.add(but2, constraints);
         but2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
+                homeScreen();
                 makeAllPosters(filmList);
+                topPanel.validate();
                 frame.setVisible(true);
             }
         });
@@ -186,12 +207,13 @@ public class Display{
         JButton but3 = makeButton("Serier", 50, 25, 25, Color.red);
         constraints.gridx = 2;
         constraints.gridy = 0;
-        mainPanel.add(but3, constraints);
+        topPanel.add(but3, constraints);
         but3.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 //your actions
+                homeScreen();
                 makeAllPosters(seriesList);
                 frame.setVisible(true);
             }
@@ -204,7 +226,7 @@ public class Display{
         constraints.gridx = 3;
         constraints.gridy = 0;
 
-        mainPanel.add(title, constraints);
+        topPanel.add(title, constraints);
 
         //Titel billede
         BufferedImage popcornimg = null;
@@ -214,9 +236,6 @@ public class Display{
             e.printStackTrace();
         }
 
-        //Søgefelt
-
-
 
         Image popcornimg2 = popcornimg.getScaledInstance(96, 96, 4);
 
@@ -224,57 +243,44 @@ public class Display{
         JLabel popcorn = new JLabel(popcornicon);
         constraints.gridx = 4;
         constraints.gridy = 0;
-        mainPanel.add(popcorn, constraints);
+        topPanel.add(popcorn, constraints);
 
 
+        JTextField textField = maketextField(20);
+        constraints.gridx = 5;
+        constraints.gridy = 0;
+        topPanel.add(textField, constraints);
 
-
-        //Filmplakater
-
-
-
-
-        //Scrollbar
-        frame.add(makeScrollPane());
-
-
-        frame.setVisible(true);
     }
 
     void titleScreen() {
-        frame = new JFrame("Popkorn Tid");
-        frame.setSize(800, 800);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainPanel = new JPanel();
-        frame.add(mainPanel);
-        mainPanel.setBackground(Color.black);
-        mainPanel.setLayout(null);
-
         //Title
         JLabel title = new JLabel("Popkorn Tid");
         title.setForeground(Color.gray);
         title.setFont(title.getFont().deriveFont(0,40));
-        mainPanel.add(title);
+        topPanel.add(title);
 
         //Picture
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Popcorn_Time_logo.png"));
         JLabel label = new JLabel();
         label.setIcon(imageIcon);
-        mainPanel.add(label);
+        topPanel.add(label);
         frame.setVisible(true);
 
         //Go to Home screen after 4 seconds
 
-        Timer t = new Timer(4000, new ActionListener() {
+        Timer t = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
                 homeScreen();
+                makeAllPosters(mediaList);
+                frame.setVisible(true);
             }
         });
         t.setRepeats(false);
         t.start();
 
     }
+
 }
 
 
