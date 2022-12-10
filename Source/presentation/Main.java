@@ -8,7 +8,7 @@
         public static void main(String[] args) {
 
             Display display = new Display();
-            //Image i = new Image();
+            display.showTitleScreen();
         }
         //kode her og her
     }

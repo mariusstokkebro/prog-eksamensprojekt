@@ -26,14 +26,17 @@ public class Display{
     List<Medier> filmList;
     List<Medier> seriesList;
 
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Popcorn Tid");
     JPanel topPanel = new JPanel(new GridBagLayout());
 
     JPanel posterPanel = new JPanel(new GridBagLayout());
 
     JPanel mainPanel = new JPanel(new BorderLayout());
 
+    JPanel startPanel = new JPanel(new GridBagLayout());
+
     GridBagConstraints constraints = new GridBagConstraints();
+
 
     public Display() {
         Media media = new Media();
@@ -42,28 +45,10 @@ public class Display{
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
 
-
-
-
-        frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        topPanel.setBackground(Color.black);
         frame.setSize(800, 800);
-        frame.add(mainPanel, BorderLayout.CENTER);
-        mainPanel.setPreferredSize(new Dimension(600, 600));
-        topPanel.setBackground(Color.BLACK);
+
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(posterPanel, BorderLayout.SOUTH);
-        homeScreen();
-        makeAllPosters(mediaList);
-        posterPanel.setBackground(Color.BLACK);
-        posterPanel.setBorder(null);
-        mainPanel.add(makeScrollPane());
-
-        frame.setVisible(true);
-
 
     }
 
@@ -160,7 +145,14 @@ public class Display{
     }
 
     void homeScreen() {
-
+        frame.getContentPane().removeAll();
+        frame.add(mainPanel);
+        topPanel.setBackground(Color.BLACK);
+        topPanel.setBorder(null);
+        posterPanel.setBackground(Color.BLACK);
+        posterPanel.setBorder(null);
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(posterPanel, BorderLayout.SOUTH);
 
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -181,7 +173,6 @@ public class Display{
                 //your actions
                 homeScreen();
                 makeAllPosters(mediaList);
-                topPanel.validate();
                 frame.setVisible(true);
             }
         });
@@ -199,7 +190,6 @@ public class Display{
                 //your actions
                 homeScreen();
                 makeAllPosters(filmList);
-                topPanel.validate();
                 frame.setVisible(true);
             }
         });
@@ -251,35 +241,50 @@ public class Display{
         constraints.gridy = 0;
         topPanel.add(textField, constraints);
 
+
+        mainPanel.add(makeScrollPane());
+
+        makeAllPosters(mediaList);
+
     }
 
     void titleScreen() {
+        frame.getContentPane().removeAll();
+        frame.add(startPanel);
+        startPanel.setBackground(Color.black);
         //Title
         JLabel title = new JLabel("Popkorn Tid");
         title.setForeground(Color.gray);
         title.setFont(title.getFont().deriveFont(0,40));
-        topPanel.add(title);
+        startPanel.add(title);
 
         //Picture
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Popcorn_Time_logo.png"));
         JLabel label = new JLabel();
         label.setIcon(imageIcon);
-        topPanel.add(label);
-        frame.setVisible(true);
+        startPanel.add(label);
 
         //Go to Home screen after 4 seconds
 
-        Timer t = new Timer(1000, new ActionListener() {
+        Timer t = new Timer(3000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                homeScreen();
-                makeAllPosters(mediaList);
-                frame.setVisible(true);
+                showMainScreen();
             }
         });
-        t.setRepeats(false);
-        t.start();
-
+            t.setRepeats(false);
+            t.start();
     }
+
+    void showTitleScreen() {
+        titleScreen();
+        frame.setVisible(true);
+    }
+
+    void showMainScreen() {
+        homeScreen();
+        frame.setVisible(true);
+    }
+
 
 }
 
