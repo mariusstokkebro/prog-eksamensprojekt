@@ -37,17 +37,20 @@ public class Display{
 
     GridBagConstraints constraints = new GridBagConstraints();
 
+    JScrollPane sp;
+
 
     public Display() {
         Media media = new Media();
 
+        //Importing all media to the lists:
         mediaList = media.getMediaList();
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
 
+        //Frame settings
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
-
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
     }
@@ -75,26 +78,9 @@ public class Display{
                 int posx = 0;
                 int posy = 2;
 
-            for(int i = 0;i<mediaList.size();i++){
+                for(int i = 0;i<mediaList.size();i++){
 
-                if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
-                    ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
-                    JButton poster = new JButton(img);
-                    poster.setBorder(null);
-                    poster.setContentAreaFilled(false);
-                    constraints.gridx = posx;
-                    constraints.gridy = posy;
-                    posterPanel.add(poster, constraints);
-                    posx++;
-                }
-                if ((i % 7 == 0) && i!=0) {
-                    posx = 0;
-                    posy++;
-
-                }
-                String[] genre = mediaList.get(i).getGenre();
-                for(int u = 0;u<genre.length;u++){
-                    if((Objects.equals(textField.getText(), genre[u]))){
+                    if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
                         ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                         JButton poster = new JButton(img);
                         poster.setBorder(null);
@@ -104,10 +90,27 @@ public class Display{
                         posterPanel.add(poster, constraints);
                         posx++;
                     }
+                    if ((i % 7 == 0) && i!=0) {
+                        posx = 0;
+                        posy++;
+
+                    }
+                    String[] genre = mediaList.get(i).getGenre();
+                    for(int u = 0;u<genre.length;u++){
+                        if((Objects.equals(textField.getText(), genre[u]))){
+                            ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
+                            JButton poster = new JButton(img);
+                            poster.setBorder(null);
+                            poster.setContentAreaFilled(false);
+                            constraints.gridx = posx;
+                            constraints.gridy = posy;
+                            posterPanel.add(poster, constraints);
+                            posx++;
+                        }
+                    }
+
+
                 }
-
-
-            }
                 frame.setVisible(true);
             }
         });
@@ -125,28 +128,41 @@ public class Display{
                 posy++;
 
             }
-                ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName() + ".jpg"));
-                JButton poster = new JButton(img);
-                poster.setBorder(null);
-                poster.setContentAreaFilled(false);
-                constraints.gridx = posx;
-                constraints.gridy = posy;
-                posterPanel.add(poster, constraints);
-                posx++;
+            ImageIcon img = new ImageIcon(getClass().getResource("/" + list.get(i).getName() + ".jpg"));
+            JButton poster = new JButton(img);
+            poster.setBorder(null);
+            poster.setContentAreaFilled(false);
+            constraints.gridx = posx;
+            constraints.gridy = posy;
+            posterPanel.add(poster, constraints);
+            posx++;
         }
     }
 
     JScrollPane makeScrollPane() {
-        JScrollPane sp = new JScrollPane(posterPanel);
+        sp = new JScrollPane(posterPanel);
         sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         sp.setBorder(null);
         return sp;
     }
 
+    JLabel makeLabel(String text, int fontSize, Color color) {
+        JLabel label = new JLabel(text);
+        label.setFont(label.getFont().deriveFont(0, fontSize));
+        label.setForeground(color);
+        return label;
+    }
+
     void homeScreen() {
         frame.getContentPane().removeAll();
         frame.add(mainPanel);
+        //Remove all in mainPanel and update
+        mainPanel.removeAll();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+        //Settings for toppanel, posterpanel and adding them to mainpanel
         topPanel.setBackground(Color.BLACK);
         topPanel.setBorder(null);
         posterPanel.setBackground(Color.BLACK);
@@ -154,9 +170,11 @@ public class Display{
         mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(posterPanel, BorderLayout.SOUTH);
 
+
+        //Setting default constraints up
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.weighty = 0.1;
+        constraints.weighty = 0.5;
         constraints.weightx = 1;
         constraints.insets = new Insets(5, 5, 5, 5);
 
@@ -165,7 +183,6 @@ public class Display{
         JButton but1 = makeButton("Medier", 50, 25, 25, Color.red);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
         but1.addActionListener(new ActionListener() {
 
             @Override
@@ -173,6 +190,8 @@ public class Display{
                 //your actions
                 homeScreen();
                 makeAllPosters(mediaList);
+                sp.getViewport().setViewPosition(new Point(0, 0));
+
                 frame.setVisible(true);
             }
         });
@@ -190,6 +209,7 @@ public class Display{
                 //your actions
                 homeScreen();
                 makeAllPosters(filmList);
+                sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
         });
@@ -205,6 +225,7 @@ public class Display{
                 //your actions
                 homeScreen();
                 makeAllPosters(seriesList);
+                sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
         });
@@ -241,6 +262,8 @@ public class Display{
         constraints.gridy = 0;
         topPanel.add(textField, constraints);
 
+        constraints.gridx = 0;
+        constraints.gridy = 1;
 
         mainPanel.add(makeScrollPane());
 
@@ -271,8 +294,8 @@ public class Display{
                 showMainScreen();
             }
         });
-            t.setRepeats(false);
-            t.start();
+        t.setRepeats(false);
+        t.start();
     }
 
     void showTitleScreen() {
