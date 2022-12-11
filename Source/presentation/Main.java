@@ -9,6 +9,7 @@
 
             Display display = new Display();
             display.showMainScreen();
+
         }
         //kode her og her
     }
