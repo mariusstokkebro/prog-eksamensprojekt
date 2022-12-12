@@ -111,9 +111,9 @@ public class Media {
         for(int i = 0; i< favoritlist.size();i++)
         {
             genre = favoritlist.get(i).getGenre();
-                genres = " "+genre[0];
+            genres = " "+genre[0];
             for(int u = 1;u< genre.length;u++){
-               genres = genres+","+genre[u];
+                genres = genres+","+genre[u];
 
             }
             if(favoritlist.get(i).toString().contains("Serie")){
