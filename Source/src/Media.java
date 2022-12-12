@@ -14,22 +14,24 @@ public class Media {
     List<Film> films;
     List<Serie> series;
     List<Medier> medier;
-
+    List<Medier> favoritlist;
     DataAccess filmsData;
     DataAccess seriesData;
+    DataAccess favoritListData;
     public Media() {
 
         films = new ArrayList<>();
         series = new ArrayList<>();
-
+        favoritlist = new ArrayList<>();
         filmsData = new DataAccess("film.txt");
         seriesData = new DataAccess("serier.txt");
-
+        favoritListData = new DataAccess("favoritList.txt");
         medier = new ArrayList<>();
 
         filmData();
         serieData();
         mediaData();
+
     }
 
     public void filmData() {
@@ -81,6 +83,34 @@ public class Media {
 
 
     }
+    public void loadFavoritList() {
+        List<String> favoritList = favoritListData.load();
+        for (String element : favoritList) {
+            String[] line = element.split(";");
+            String seriesName = line[0];
+            String year = line[1].trim();
+            String genre = line[2];
+            double rating = Double.parseDouble(line[3].trim().replace(",", "."));
+            String episodes = line[4];
+            Serie medie1 = new Serie(seriesName, year, genre, rating, episodes);
+
+            favoritlist.add(medie1);
+        }
+    }
+    public void saveFavoritList(){
+        String[] genre;
+        String genres="";
+        List<String> favoritList = new ArrayList<>();
+        for(Medier m : favoritlist)
+        {
+            genre = m.getGenre();
+            for(int i = 0;i< genre.length;i++){
+                genres.concat( " "+genre[i]);
+            }
+            favoritList.add(m.getName()+"; "+m.getYear()+";"+genres+"; "+m.getRating());
+        }
+        favoritListData.save(favoritList);
+    }
 
     public List getFilmList() {
 
@@ -96,6 +126,9 @@ public class Media {
 
 
         return medier;
+    }
+    public List getFavoritList(){
+        return favoritlist;
     }
 
 }

@@ -1,8 +1,7 @@
 package Data;
 import src.Medier;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,10 +31,21 @@ public class DataAccess {
 
         return data;
     }
-    public void save(List<Medier> favoritList){
-        File myObj = new File("favoritList.txt");
 
+    public void save(List<String> favoriteList) {
+        try {
+            File f = new File(fileName);
+            PrintWriter pw = new PrintWriter(f);
+            for(String d : favoriteList)
+            {
+                pw.println(d);
+            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No file, saving nothing.");
+        }
     }
+
 
 
 

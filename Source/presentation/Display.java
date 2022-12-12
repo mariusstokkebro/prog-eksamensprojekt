@@ -50,6 +50,7 @@ public class Display{
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
 
+
         //Frame settings
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
