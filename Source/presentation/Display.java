@@ -170,8 +170,10 @@ public class Display{
     }
 
     void homeScreen() {
+        //Fjerner alle paneller fra mainPanel og tilføjer mainPanel
         frame.getContentPane().removeAll();
         frame.add(mainPanel);
+
         //Remove all in mainPanel and update
         mainPanel.removeAll();
         mainPanel.revalidate();
@@ -246,12 +248,9 @@ public class Display{
         });
 
         //Titel med 'Popkorn tid'
-        JLabel title = new JLabel("Popkorn Tid");
-        title.setForeground(Color.gray);
-        title.setFont(title.getFont().deriveFont(0, 25));
+        JLabel title = makeLabel("Popkorn Tid", 25, Color.gray);
         constraints.gridx = 3;
         constraints.gridy = 0;
-
         topPanel.add(title, constraints);
 
         //Titel billede
@@ -284,16 +283,12 @@ public class Display{
         startPanel.setBackground(Color.black);
 
         //Title
-        JLabel title = new JLabel("Popkorn Tid");
-        title.setForeground(Color.gray);
-        title.setFont(title.getFont().deriveFont(0,40));
+        JLabel title = makeLabel("Popkorn Tid", 40, Color.gray);
         startPanel.add(title);
 
         //Picture
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Popcorn_Time_logo.png"));
-        JLabel label = new JLabel();
-        label.setIcon(imageIcon);
-        startPanel.add(label);
+        JLabel popcornIcon = makeImageIcon("/Popcorn_Time_logo.png", 256, 256);
+        startPanel.add(popcornIcon);
 
         //Lav en timer som skifter hen til en ny scene efter 3 sekunder
         Timer t = new Timer(3000, new ActionListener() {
