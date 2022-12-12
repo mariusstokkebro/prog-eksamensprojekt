@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/Resources/plussign.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/src/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="UI START">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/presentation/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Display.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Display$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Display$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Display.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Display.class" afterDir="false" />
@@ -162,28 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670418784135</updated>
     </task>
-    <task id="LOCAL-00014" summary="Fikset billederne">
-      <created>1670675646860</created>
+    <task id="LOCAL-00014" summary="UI START">
+      <created>1670515497426</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1670675646860</updated>
+      <updated>1670515497426</updated>
     </task>
-    <task id="LOCAL-00015" summary="Fikset billederne">
-      <created>1670679073071</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1670679073071</updated>
-    </task>
-    <task id="LOCAL-00016" summary=".">
-      <created>1670792066843</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1670792066844</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -204,8 +186,6 @@
     <MESSAGE value="fjernet presentation" />
     <MESSAGE value="fikset pisset" />
     <MESSAGE value="UI START" />
-    <MESSAGE value="Fikset billederne" />
-    <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="UI START" />
   </component>
 </project>

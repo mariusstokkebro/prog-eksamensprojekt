@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]" date="1670518360253" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 08-12-2022 17:52 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/prog-eksamensprojekt/presentation/Display$1.class" />
+    <option name="AFTER_PATH" value="out/production/prog-eksamensprojekt/presentation/Display$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]/Display$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/prog-eksamensprojekt/presentation/Display.class" />
+    <option name="AFTER_PATH" value="out/production/prog-eksamensprojekt/presentation/Display.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]/Display.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/prog-eksamensprojekt/src/Media.class" />
+    <option name="AFTER_PATH" value="out/production/prog-eksamensprojekt/src/Media.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]/Media.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/prog-eksamensprojekt/Data/Image.class" />
+    <option name="AFTER_PATH" value="out/production/prog-eksamensprojekt/Data/Image.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08-12-2022_17_52_[Changes]/Image.class" />
+  </binary>
+</changelist>
