@@ -4,7 +4,7 @@
         public static void main(String[] args) {
 
             Display display = new Display();
-            display.showTitleScreen();
+            display.showMediaScene();
         }
         //kode her og her
     }

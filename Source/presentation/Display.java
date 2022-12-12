@@ -36,7 +36,8 @@ public class Display{
     JPanel startPanel = new JPanel(new GridBagLayout());
 
     JPanel userScreen = new JPanel(new GridBagLayout());
-
+    JPanel mediaPanel = new JPanel(new BorderLayout());
+    String currentMovie;
     GridBagConstraints constraints = new GridBagConstraints();
 
     JScrollPane sp;
@@ -137,6 +138,14 @@ public class Display{
             JButton poster = new JButton(img);
             poster.setBorder(null);
             poster.setContentAreaFilled(false);
+            poster.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showMediaScene();
+                    currentMovie = list.get(i).getName();
+                }
+            });
             constraints.gridx = posx;
             constraints.gridy = posy;
             posterPanel.add(poster, constraints);
@@ -320,6 +329,26 @@ public class Display{
         makeLabel("Create new User", 20, Color.gray);
     }
 
+    void mediaScene(String movieName){
+
+        frame.getContentPane().removeAll();
+        frame.add(mediaPanel);
+        JPanel topPanel = new JPanel();
+        JPanel leftPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        mediaPanel.add(topPanel,BorderLayout.NORTH);
+        mediaPanel.add(leftPanel,BorderLayout.WEST);
+        mediaPanel.add(rightPanel,BorderLayout.EAST);
+        topPanel.setBackground(Color.BLACK);
+        leftPanel.setBackground(Color.BLUE);
+        rightPanel.setBackground(Color.red);
+        JLabel title = makeLabel("Popkorn tid",25,Color.gray);
+        topPanel.add(title,BorderLayout.CENTER);
+        JLabel popIcon = makeImageIcon("/Popcorn_Time_logo.png",96,96);
+        topPanel.add(popIcon,BorderLayout.CENTER);
+        JLabel poster = makeImageIcon(getClass().getResource("/" + movieName + ".jpg"));
+    }
+
     void showTitleScreen() {
         titleScreen();
         frame.setVisible(true);
@@ -330,8 +359,13 @@ public class Display{
         frame.setVisible(true);
     }
 
+
     void showUserScreen() {
         userScreen();
+        frame.setVisible(true);
+    }
+    void showMediaScene(){
+        mediaScene();
         frame.setVisible(true);
     }
 
