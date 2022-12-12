@@ -80,10 +80,10 @@ public class Display{
                 posterPanel.repaint();
                 int posx = 0;
                 int posy = 2;
-
+                int posters = 0;
                 for(int i = 0;i<mediaList.size();i++){
 
-                    if(Objects.equals(textField.getText(), mediaList.get(i).getName())){
+                    if(mediaList.get(i).getName().contains(textField.getText())){
                         ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                         JButton poster = new JButton(img);
                         poster.setBorder(null);
@@ -92,8 +92,9 @@ public class Display{
                         constraints.gridy = posy;
                         posterPanel.add(poster, constraints);
                         posx++;
+                        posters++;
                     }
-                    if ((i % 7 == 0) && i!=0) {
+                    if ((posters % 7 == 0) && posters!=0) {
                         posx = 0;
                         posy++;
 
@@ -109,6 +110,7 @@ public class Display{
                             constraints.gridy = posy;
                             posterPanel.add(poster, constraints);
                             posx++;
+                            posters++;
                         }
                     }
 
