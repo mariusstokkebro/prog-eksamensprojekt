@@ -31,7 +31,8 @@ public class Media {
         filmData();
         serieData();
         mediaData();
-
+        favoritlist = medier;
+        saveFavoritList();
     }
 
     public void filmData() {
@@ -87,27 +88,41 @@ public class Media {
         List<String> favoritList = favoritListData.load();
         for (String element : favoritList) {
             String[] line = element.split(";");
-            String seriesName = line[0];
+            String name = line[0];
             String year = line[1].trim();
             String genre = line[2];
             double rating = Double.parseDouble(line[3].trim().replace(",", "."));
-            String episodes = line[4];
-            Serie medie1 = new Serie(seriesName, year, genre, rating, episodes);
-
-            favoritlist.add(medie1);
+            if(line[4]==null){
+                Film film = new Film(name,year,genre,rating);
+                favoritlist.add(film);
+            }
+            else {
+                String episodes = line[4];
+                Serie serie = new Serie(name, year, genre, rating, episodes);
+                favoritlist.add(serie);
+            }
         }
     }
     public void saveFavoritList(){
         String[] genre;
-        String genres="";
+        String genres;
+
         List<String> favoritList = new ArrayList<>();
-        for(Medier m : favoritlist)
+        for(int i = 0; i< favoritlist.size();i++)
         {
-            genre = m.getGenre();
-            for(int i = 0;i< genre.length;i++){
-                genres.concat( " "+genre[i]);
+            genre = favoritlist.get(i).getGenre();
+            genres = " "+genre[0];
+            for(int u = 1;u< genre.length;u++){
+                genres = genres+","+genre[u];
+
             }
-            favoritList.add(m.getName()+"; "+m.getYear()+";"+genres+"; "+m.getRating());
+            if(favoritlist.get(i).toString().contains("Serie")){
+                favoritList.add(favoritlist.get(i).getName()+"; "+favoritlist.get(i).getYear()+";"+genres+"; "+favoritlist.get(i).getRating()+"; "+favoritlist.get(i).getEpisode()+";");
+                favoritListData.save(favoritList);
+            }
+            else {
+                favoritList.add(favoritlist.get(i).getName() + "; " + favoritlist.get(i).getYear() + ";" + genres + "; " + favoritlist.get(i).getRating()+";");
+            }
         }
         favoritListData.save(favoritList);
     }

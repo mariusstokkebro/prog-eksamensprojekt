@@ -5,6 +5,7 @@ public abstract class Medier {
     private String year;
     private String[] genre;
     private double rating;
+    private String episode;
     public Medier(String name, String year,String genre, double rating){
         this.name = name;
         this.year = year;
@@ -23,6 +24,8 @@ public abstract class Medier {
     public double getRating(){
         return rating;
     }
+
+    public String getEpisode(){return episode;}
 
 }
 
