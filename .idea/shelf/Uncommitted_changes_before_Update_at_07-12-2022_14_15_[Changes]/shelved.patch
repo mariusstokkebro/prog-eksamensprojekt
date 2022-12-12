@@ -1,0 +1,180 @@
+Index: Source/Data/Image.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Data;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class Image {\r\n    JFrame frame;\r\n    JLabel display;\r\n    ImageIcon Image;\r\n\r\n\r\n\r\n    public Image(){\r\n        JFrame path = new JFrame(\"\");\r\n        frame = new JFrame(\"filmplakater\");\r\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        try{\r\n            Image = new ImageIcon(getClass().getResource(\"/Amadeus.jpg\"));\r\n            display = new JLabel(Image);\r\n            frame.add(display);\r\n\r\n        }catch (NullPointerException e){\r\n            System.out.println(\"cannot find\");\r\n        }\r\n        frame.setSize(400,400);\r\n        frame.setVisible(true);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Source/Data/Image.java b/Source/Data/Image.java
+--- a/Source/Data/Image.java	(revision 8d891cc9a32b24ad558a8470b49a5ba5fedee20c)
++++ b/Source/Data/Image.java	(date 1670418727261)
+@@ -10,7 +10,7 @@
+ 
+ 
+     public Image(){
+-        JFrame path = new JFrame("");
++
+         frame = new JFrame("filmplakater");
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         try{
+Index: Source/Data/DataAccess.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Data;\r\nimport java.io.File;\r\nimport java.io.FileNotFoundException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Scanner;\r\n\r\npublic class DataAccess {\r\n\r\n    public String fileName;\r\n\r\n    public DataAccess(String fileName) {\r\n        this.fileName = fileName;\r\n    }\r\n\r\n    public List<String> load() {\r\n\r\n            List<String> data = new ArrayList<String>();\r\n            try {\r\n            File file = new File(getClass().getResource( \"/\" + fileName).getFile());\r\n            Scanner s = new Scanner(file);\r\n\r\n            while(s.hasNextLine()) {\r\n                data.add(s.nextLine());\r\n            }\r\n        }\r\n        catch(FileNotFoundException e) {\r\n                System.out.println(e.getMessage());\r\n            }\r\n\r\n        return data;\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Source/Data/DataAccess.java b/Source/Data/DataAccess.java
+--- a/Source/Data/DataAccess.java	(revision 8d891cc9a32b24ad558a8470b49a5ba5fedee20c)
++++ b/Source/Data/DataAccess.java	(date 1670418727266)
+@@ -5,7 +5,7 @@
+ import java.util.List;
+ import java.util.Scanner;
+ 
+-public class DataAccess {
++public class  DataAccess {
+ 
+     public String fileName;
+ 
+Index: Source/src/Media.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package src;\r\nimport Data.DataAccess;\r\nimport src.Film;\r\nimport src.Medier;\r\nimport src.Serie;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.List;\r\n\r\npublic class Media {\r\n\r\n    List<Film> films;\r\n    List<Serie> series;\r\n    List<Medier> medier;\r\n\r\n    DataAccess filmsData;\r\n    DataAccess seriesData;\r\n    public Media() {\r\n\r\n        List<Film> films = new ArrayList<>();\r\n        List<Serie> series = new ArrayList<>();\r\n\r\n        filmsData = new DataAccess(\"film.txt\");\r\n        seriesData = new DataAccess(\"serier.txt\");\r\n\r\n        List<Medier> medier = new ArrayList<>();\r\n\r\n    }\r\n\r\n    public void filmData() {\r\n\r\n    List<String> filmData = filmsData.load();\r\n        for (String element : filmData) {\r\n            String[] line = element.split(\";\");\r\n            String movieName = line[0];\r\n            String year = line[1].trim();\r\n            String genre = line[2];\r\n            double rating = Double.parseDouble(line[3].trim().replace(\",\", \".\"));\r\n            Film film1 = new Film(movieName, year, genre, rating);\r\n            films.add(film1);\r\n\r\n        }\r\n    }\r\n        public void serieData() {\r\n            List<String> serieData = seriesData.load();\r\n            for (String element : serieData) {\r\n                String[] line = element.split(\";\");\r\n                String seriesName = line[0];\r\n                String year = line[1].trim();\r\n                String genre = line[2];\r\n                double rating = Double.parseDouble(line[3].trim().replace(\",\", \".\"));\r\n                String episodes = line[4];\r\n                Serie serie1 = new Serie(seriesName, year, genre, rating, episodes);\r\n\r\n                series.add(serie1);\r\n            }\r\n\r\n        }\r\n\r\n        public void mediaData() {\r\n\r\n            serieData();\r\n            filmData();\r\n\r\n            for(int i = 0; i<series.size();i++) {\r\n            medier.add(series.get(i));\r\n\r\n            }\r\n\r\n\r\n            for(int u = 0; u<films.size();u++) {\r\n                medier.add(films.get(u));\r\n\r\n            }\r\n\r\n\r\n        //Sorterer listen, tager to parameterer og sammenligner dem i forhold til navnets alfabetiske rækkefølge\r\n        Collections.sort(medier, (p1, p2) -> p1.getName().compareTo(p2.getName()));\r\n\r\n        System.out.println(getMediaList());\r\n\r\n    }\r\n\r\n        public List getFilmList() {\r\n\r\n            return films;\r\n        }\r\n\r\n        public List getSeriesList() {\r\n\r\n            return series;\r\n        }\r\n\r\n        public List<Medier> getMediaList() {\r\n            List<Medier> list = new ArrayList<Medier>();\r\n\r\n            return list;\r\n        }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Source/src/Media.java b/Source/src/Media.java
+--- a/Source/src/Media.java	(revision 8d891cc9a32b24ad558a8470b49a5ba5fedee20c)
++++ b/Source/src/Media.java	(date 1670418727273)
+@@ -63,18 +63,13 @@
+             serieData();
+             filmData();
+ 
+-            for(int i = 0; i<series.size();i++) {
+-            medier.add(series.get(i));
+-
+-            }
++            medier = series;
+ 
+ 
+-            for(int u = 0; u<films.size();u++) {
+-                medier.add(films.get(u));
+ 
+-            }
+ 
+ 
++        }
+         //Sorterer listen, tager to parameterer og sammenligner dem i forhold til navnets alfabetiske rækkefølge
+         Collections.sort(medier, (p1, p2) -> p1.getName().compareTo(p2.getName()));
+ 
+Index: out/production/prog-eksamensprojekt/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c8858439-785c-4699-9aed-3f95e724109a\" name=\"Changes\" comment=\"fikset pisset\">\r\n      <change beforePath=\"$PROJECT_DIR$/Source/presentation/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Source/presentation/Main.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Hy7NTK0R2zUvWklc9IVkj6L5kV\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"presentation\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c8858439-785c-4699-9aed-3f95e724109a\" name=\"Changes\" comment=\"\" />\r\n      <created>1669245434609</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669245434609</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"fået rettet nogle ting og begyndt at sætte data op\">\r\n      <created>1669637579157</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669637579157</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"rykket main ind i view\">\r\n      <created>1670334851277</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670334851277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"rykket main ind i view\">\r\n      <created>1670334875383</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670334875383</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"begyndt at sætte lidt op af GUI\">\r\n      <created>1670338257105</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338257106</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"begyndt at sætte lidt op af GUI\">\r\n      <created>1670338409403</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338409403</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"fjernet presentation\">\r\n      <created>1670338559167</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338559167</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"fikset pisset\">\r\n      <created>1670338869011</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338869012</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"fikset pisset\">\r\n      <created>1670339094965</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670339094965</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"9\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"fået rettet nogle ting og begyndt at sætte data op\" />\r\n    <MESSAGE value=\"rykket main ind i view\" />\r\n    <MESSAGE value=\"begyndt at sætte lidt op af GUI\" />\r\n    <MESSAGE value=\"fjernet presentation\" />\r\n    <MESSAGE value=\"fikset pisset\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fikset pisset\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/out/production/prog-eksamensprojekt/.idea/workspace.xml b/out/production/prog-eksamensprojekt/.idea/workspace.xml
+--- a/out/production/prog-eksamensprojekt/.idea/workspace.xml	(revision 8d891cc9a32b24ad558a8470b49a5ba5fedee20c)
++++ b/out/production/prog-eksamensprojekt/.idea/workspace.xml	(date 1670418727280)
+@@ -4,8 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="fikset pisset">
+-      <change beforePath="$PROJECT_DIR$/Source/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Main.java" afterDir="false" />
++    <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="rykket main ind i view">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Data/DataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Data/DataAccess.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Data/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Data/Image.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -38,12 +42,16 @@
+   &quot;keyToString&quot;: {
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/Madso/OneDrive/Dokumenter/GitHub/prog-eksamensprojekt&quot;,
+     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+   }
+ }</component>
+   <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/Resources" />
++    </key>
+     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+       <recent name="presentation" />
+     </key>
+@@ -113,7 +121,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1670339094965</updated>
+     </task>
+-    <option name="localTasksCounter" value="9" />
++    <task id="LOCAL-00009" summary="UI START">
++      <created>1670339204230</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1670339204230</updated>
++    </task>
++    <option name="localTasksCounter" value="10" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -133,6 +148,7 @@
+     <MESSAGE value="begyndt at sætte lidt op af GUI" />
+     <MESSAGE value="fjernet presentation" />
+     <MESSAGE value="fikset pisset" />
+-    <option name="LAST_COMMIT_MESSAGE" value="fikset pisset" />
++    <MESSAGE value="UI START" />
++    <option name="LAST_COMMIT_MESSAGE" value="UI START" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c8858439-785c-4699-9aed-3f95e724109a\" name=\"Changes\" comment=\"UI START\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Source/presentation/Display.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Source/presentation/Display.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Source/presentation/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Source/presentation/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Source/src/Media.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Source/src/Media.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_1.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_1.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Hy7NTK0R2zUvWklc9IVkj6L5kV\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/Resources\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"presentation\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c8858439-785c-4699-9aed-3f95e724109a\" name=\"Changes\" comment=\"\" />\r\n      <created>1669245434609</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669245434609</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"fået rettet nogle ting og begyndt at sætte data op\">\r\n      <created>1669637579157</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669637579157</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"rykket main ind i view\">\r\n      <created>1670334851277</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670334851277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"rykket main ind i view\">\r\n      <created>1670334875383</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670334875383</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"begyndt at sætte lidt op af GUI\">\r\n      <created>1670338257105</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338257106</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"begyndt at sætte lidt op af GUI\">\r\n      <created>1670338409403</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338409403</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"fjernet presentation\">\r\n      <created>1670338559167</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338559167</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"fikset pisset\">\r\n      <created>1670338869011</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670338869012</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"fikset pisset\">\r\n      <created>1670339094965</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670339094965</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"UI START\">\r\n      <created>1670339204230</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670339204230</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"UI START\">\r\n      <created>1670340552294</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670340552294</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"11\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"fået rettet nogle ting og begyndt at sætte data op\" />\r\n    <MESSAGE value=\"rykket main ind i view\" />\r\n    <MESSAGE value=\"begyndt at sætte lidt op af GUI\" />\r\n    <MESSAGE value=\"fjernet presentation\" />\r\n    <MESSAGE value=\"fikset pisset\" />\r\n    <MESSAGE value=\"UI START\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"UI START\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8d891cc9a32b24ad558a8470b49a5ba5fedee20c)
++++ b/.idea/workspace.xml	(date 1670418835093)
+@@ -6,13 +6,11 @@
+   <component name="ChangeListManager">
+     <list default="true" id="c8858439-785c-4699-9aed-3f95e724109a" name="Changes" comment="UI START">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Source/presentation/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Display.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Source/presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/presentation/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Data/DataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Data/DataAccess.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Source/Data/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Data/Image.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Source/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/Source/src/Media.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_14_48__Changes_1.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/shelf/Uncommitted_changes_before_Update_at_06_12_2022_11_05__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/Data/Image.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/Data/Image.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/prog-eksamensprojekt/presentation/Main.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -131,14 +129,7 @@
+       <option name="project" value="LOCAL" />
+       <updated>1670339204230</updated>
+     </task>
+-    <task id="LOCAL-00010" summary="UI START">
+-      <created>1670340552294</created>
+-      <option name="number" value="00010" />
+-      <option name="presentableId" value="LOCAL-00010" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1670340552294</updated>
+-    </task>
+-    <option name="localTasksCounter" value="11" />
++    <option name="localTasksCounter" value="10" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
