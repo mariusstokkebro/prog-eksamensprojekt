@@ -35,6 +35,8 @@ public class Display{
 
     JPanel startPanel = new JPanel(new GridBagLayout());
 
+    JPanel userScreen = new JPanel(new GridBagLayout());
+
     GridBagConstraints constraints = new GridBagConstraints();
 
     JScrollPane sp;
@@ -154,6 +156,18 @@ public class Display{
         return label;
     }
 
+    JLabel makeImageIcon(String path, int width, int height) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(getClass().getResource(path).getFile()));
+        } catch (IOException e) {
+            System.out.println("Image not found");
+        }
+        Image scaledImg = img.getScaledInstance(width, height, 4);
+        JLabel imgIcon = new JLabel(new ImageIcon(scaledImg));
+        return imgIcon;
+    }
+
     void homeScreen() {
         frame.getContentPane().removeAll();
         frame.add(mainPanel);
@@ -240,41 +254,34 @@ public class Display{
         topPanel.add(title, constraints);
 
         //Titel billede
-        BufferedImage popcornimg = null;
-        try {
-            popcornimg = ImageIO.read(new File(getClass().getResource("/Popcorn_Time_logo.png").getFile()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        Image popcornimg2 = popcornimg.getScaledInstance(96, 96, 4);
-
-        ImageIcon popcornicon = new ImageIcon(popcornimg2);
-        JLabel popcorn = new JLabel(popcornicon);
+        JLabel popcornIcon = makeImageIcon("/Popcorn_Time_logo.png", 96, 96);
         constraints.gridx = 4;
         constraints.gridy = 0;
-        topPanel.add(popcorn, constraints);
+        topPanel.add(popcornIcon, constraints);
 
-
+        //Tekst felt
         JTextField textField = maketextField(20);
         constraints.gridx = 5;
         constraints.gridy = 0;
         topPanel.add(textField, constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-
+        //Tilføj en scrollpane til mainPanel inde i posterPanel
         mainPanel.add(makeScrollPane());
 
+
+        //Tilføj alle plakater til posterPanel
         makeAllPosters(mediaList);
 
     }
 
     void titleScreen() {
+        //Fjern alle paneler fra frame og tilføj den nuværende
         frame.getContentPane().removeAll();
         frame.add(startPanel);
+
+        //Sæt baggrunden til sort
         startPanel.setBackground(Color.black);
+
         //Title
         JLabel title = new JLabel("Popkorn Tid");
         title.setForeground(Color.gray);
@@ -287,8 +294,7 @@ public class Display{
         label.setIcon(imageIcon);
         startPanel.add(label);
 
-        //Go to Home screen after 4 seconds
-
+        //Lav en timer som skifter hen til en ny scene efter 3 sekunder
         Timer t = new Timer(3000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showMainScreen();
@@ -296,6 +302,24 @@ public class Display{
         });
         t.setRepeats(false);
         t.start();
+    }
+
+    void userScreen() {
+        frame.getContentPane().removeAll();
+        frame.add(userScreen);
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+
+
+        userScreen.setBackground(Color.black);
+        JPanel userBorder = new JPanel();
+        userBorder.setBackground(Color.gray);
+
+        JLabel plusSign = makeImageIcon("/plussign.png", 150, 150);
+        userBorder.add(plusSign, constraints);
+        userScreen.add(userBorder, constraints);
+        makeLabel("Create new User", 20, Color.gray);
     }
 
     void showTitleScreen() {
@@ -308,6 +332,10 @@ public class Display{
         frame.setVisible(true);
     }
 
+    void showUserScreen() {
+        userScreen();
+        frame.setVisible(true);
+    }
 
 }
 
