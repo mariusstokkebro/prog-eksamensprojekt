@@ -322,10 +322,7 @@ public class Display{
         favoritListBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                homeScreen();
-                makeAllPosters(favoritListe);
-                sp.getViewport().setViewPosition(new Point(0, 0));
-                frame.setVisible(true);
+                showFavoritListe();
             }
         });
         constraints.gridx = 5;
@@ -432,12 +429,19 @@ public class Display{
         });
         topPanel.add(homeBut, constraints);
 
+
+        JButton favoritListeBut = makeButton("Favoritliste", 25, 50, 25, Color.RED);
+        favoritListeBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showFavoritListe();
+            }
+        });
         constraints.gridx = 3;
-        topPanel.add(makeLabel("          ", 25, Color.BLACK), constraints);
+        topPanel.add(favoritListeBut, constraints);
 
 
-        String mediaName = medier.getName();
-        ImageIcon poster = makeImageIcon("/" + mediaName + ".jpg", 420, 627);
+        ImageIcon poster = makeImageIcon("/" + medier.getName() + ".jpg", 420, 627);
         leftPanel.add(new JLabel(poster), BorderLayout.CENTER);
 
         int fontSize = 25;
@@ -578,6 +582,13 @@ public class Display{
     }
     void showMediaScene(Medier medier){
         mediaScene(medier);
+        frame.setVisible(true);
+    }
+
+    void showFavoritListe() {
+        homeScreen();
+        makeAllPosters(favoritListe);
+        sp.getViewport().setViewPosition(new Point(0, 0));
         frame.setVisible(true);
     }
 
