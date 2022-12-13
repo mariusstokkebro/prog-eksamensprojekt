@@ -313,9 +313,24 @@ public class Display{
 
         //Tekst felt
         JTextField textField = maketextField(20);
-        constraints.gridx = 5;
+        constraints.gridx = 6;
         constraints.gridy = 0;
         topPanel.add(textField, constraints);
+
+        //FavoritListe knap
+        JButton favoritListBut = makeButton("Favoritliste", 50, 25, 25, Color.RED);
+        favoritListBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                homeScreen();
+                makeAllPosters(favoritListe);
+                sp.getViewport().setViewPosition(new Point(0, 0));
+                frame.setVisible(true);
+            }
+        });
+        constraints.gridx = 5;
+        constraints.gridy = 0;
+        topPanel.add(favoritListBut, constraints);
 
         //Tilføj en scrollpane til mainPanel inde i posterPanel
         mainPanel.add(makeScrollPane());
@@ -378,9 +393,6 @@ public class Display{
         frame.add(mediaPanel);
         favoritListe = media.getFavoritList();
 
-        for (Medier med : favoritListe) {
-            System.out.println(med.getName());
-        }
 
 
         JPanel topPanel = new JPanel(new GridBagLayout());
@@ -500,9 +512,14 @@ public class Display{
 
         JButton favoriteButton = makeButton("Tilføj til favoritliste", 100, 100, 25, Color.black);
 
-        System.out.println(favoritListe.contains(medier));
-        if (favoritListe.contains(medier)) {
-            favoriteButton.setText("Filmen er i din favoritliste");
+
+
+        favoriteButton.setName(medier.getName());
+
+        for (int i = 0; i < favoritListe.size(); i++) {
+            if (favoritListe.get(i).getName().equals(medier.getName())) {
+                favoriteButton.setText("Filmen er i din favoritliste");
+            }
         }
 
         favoriteButton.setContentAreaFilled(true);
@@ -510,16 +527,13 @@ public class Display{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton button = (JButton)e.getSource();
-                boolean isThere =false;
-                for(int i = 0;i<favoritListe.size();i++) {
-                    if (favoritListe.get(i).getName().equals(medier.getName())) {
-                        button.setText("Filmen er i din favoritliste");
-                        isThere = true;
-                    }
-                }
-                if(!isThere){
+                String movieName = button.getName();
+                if (favoritListe.stream().anyMatch(med -> med.getName().equals(movieName))) {
+                    button.setText("Filmen er i din favoritliste");
+                } else {
                     favoritListe.add(medier);
                     media.saveFavoritList(favoritListe);
+                    button.setText("Filmen er i din favoritliste");
                 }
             }
         });
