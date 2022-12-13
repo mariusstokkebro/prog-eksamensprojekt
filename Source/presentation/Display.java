@@ -81,7 +81,7 @@ public class Display{
                 int posters = 0;
                 for(int i = 0;i<mediaList.size();i++){
 
-                    if(mediaList.get(i).getName().contains(textField.getText())){
+                    if(mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())){
                         ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                         JButton poster = new JButton(img);
                         poster.setName(mediaList.get(i).getName());
@@ -114,7 +114,7 @@ public class Display{
                     }
                     String[] genre = mediaList.get(i).getGenre();
                     for(int u = 0;u<genre.length;u++){
-                        if((Objects.equals(textField.getText(), genre[u]))){
+                        if((Objects.equals(textField.getText().toLowerCase(), genre[u].toLowerCase()))){
                             ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                             JButton poster = new JButton(img);
                             poster.setName(mediaList.get(i).getName());
