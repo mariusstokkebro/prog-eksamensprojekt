@@ -54,7 +54,7 @@ public class Display{
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
         favoritListe = media.getFavoritList();
-        favoritListe.add(filmList.get(1));
+
         //Frame settings
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
