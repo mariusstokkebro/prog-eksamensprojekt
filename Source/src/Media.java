@@ -1,11 +1,7 @@
 package src;
 import Data.DataAccess;
-import src.Film;
-import src.Medier;
-import src.Serie;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,7 +65,6 @@ public class Media {
 
         for(int i = 0; i<series.size();i++) {
             medier.add(series.get(i));
-
         }
 
 
@@ -95,7 +90,6 @@ public class Media {
                 String episodes = line[4];
                 Serie serie = new Serie(name, year, genre, rating, episodes);
                 favoritelist.add(serie);
-
             }
             catch (ArrayIndexOutOfBoundsException e){
 

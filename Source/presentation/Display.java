@@ -4,21 +4,13 @@ import src.Film;
 import src.Medier;
 import src.Media;
 import src.Serie;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.Buffer;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Display{
 
@@ -60,6 +52,8 @@ public class Display{
         frame.setSize(800, 800);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+
+
     }
 
     JButton makeButton(String text, int height, int width, int fontSize, Color color) {
@@ -90,6 +84,21 @@ public class Display{
                     if(mediaList.get(i).getName().contains(textField.getText())){
                         ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                         JButton poster = new JButton(img);
+                        poster.setName(mediaList.get(i).getName());
+                        poster.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                JButton but = (JButton)e.getSource();
+                                String movieName = but.getName();
+                                for (Medier medier : mediaList) {
+                                    if (medier.getName().equals(movieName)) {
+                                        showMediaScene(medier);
+                                        break;
+                                    }
+                                }
+
+                            }
+                        });
                         poster.setBorder(null);
                         poster.setContentAreaFilled(false);
                         constraints.gridx = posx;
@@ -108,6 +117,21 @@ public class Display{
                         if((Objects.equals(textField.getText(), genre[u]))){
                             ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                             JButton poster = new JButton(img);
+                            poster.setName(mediaList.get(i).getName());
+                            poster.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    JButton but = (JButton)e.getSource();
+                                    String movieName = but.getName();
+                                    for (Medier medier : mediaList) {
+                                        if (medier.getName().equals(movieName)) {
+                                            showMediaScene(medier);
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            });
                             poster.setBorder(null);
                             poster.setContentAreaFilled(false);
                             constraints.gridx = posx;
@@ -150,7 +174,10 @@ public class Display{
                     JButton but = (JButton)e.getSource();
                     String movieName = but.getName();
                     for (Medier medier : mediaList) {
-                        if (medier.getName().equals(movieName)) showMediaScene(medier);
+                        if (medier.getName().equals(movieName)) {
+                            showMediaScene(medier);
+                            break;
+                        }
                     }
 
                 }
@@ -349,6 +376,12 @@ public class Display{
         mediaPanel.revalidate();
         mediaPanel.repaint();
         frame.add(mediaPanel);
+        favoritListe = media.getFavoritList();
+
+        for (Medier med : favoritListe) {
+            System.out.println(med.getName());
+        }
+
 
         JPanel topPanel = new JPanel(new GridBagLayout());
         JPanel leftPanel = new JPanel(new BorderLayout());
@@ -467,6 +500,11 @@ public class Display{
 
         JButton favoriteButton = makeButton("Tilføj til favoritliste", 100, 100, 25, Color.black);
 
+        System.out.println(favoritListe.contains(medier));
+        if (favoritListe.contains(medier)) {
+            favoriteButton.setText("Filmen er i din favoritliste");
+        }
+
         favoriteButton.setContentAreaFilled(true);
         favoriteButton.addActionListener(new ActionListener() {
             @Override
@@ -476,9 +514,9 @@ public class Display{
                 for(int i = 0;i<favoritListe.size();i++) {
                     if (favoritListe.get(i).getName().equals(medier.getName())) {
                         button.setText("Filmen er i din favoritliste");
-                        isThere =true;
+                        isThere = true;
                     }
-                    }
+                }
                 if(!isThere){
                     favoritListe.add(medier);
                     media.saveFavoritList(favoritListe);
