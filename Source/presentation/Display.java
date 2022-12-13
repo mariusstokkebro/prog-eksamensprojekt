@@ -528,12 +528,27 @@ public class Display{
             public void actionPerformed(ActionEvent e) {
                 JButton button = (JButton)e.getSource();
                 String movieName = button.getName();
+                int removeIndex = -1;
                 if (favoritListe.stream().anyMatch(med -> med.getName().equals(movieName))) {
-                    button.setText("Filmen er i din favoritliste");
+                    button.setText("Tilføj til favoritliste");
+                    for(int i = 0;i<favoritListe.size();i++){
+                        if(favoritListe.get(i).getName().equals(movieName)){
+                            removeIndex = i;
+                            break;
+                        }
+
+                    }
+                    if(removeIndex > -1)
+                    {
+                        favoritListe.remove(removeIndex);
+                        media.saveFavoritList(favoritListe);
+
+                    }
+                    media.saveFavoritList(favoritListe);
                 } else {
                     favoritListe.add(medier);
                     media.saveFavoritList(favoritListe);
-                    button.setText("Filmen er i din favoritliste");
+                    button.setText("Fjern fra favoritliste");
                 }
             }
         });
