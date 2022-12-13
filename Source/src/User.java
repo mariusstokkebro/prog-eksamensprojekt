@@ -3,7 +3,11 @@ package src;
 public class User {
     String name;
 
-    User() {
+    User(String name) {
+        this.name = name;
+    }
 
+    String getName() {
+        return name;
     }
 }

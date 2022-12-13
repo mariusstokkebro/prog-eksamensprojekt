@@ -391,9 +391,6 @@ public class Display{
         mediaPanel.revalidate();
         mediaPanel.repaint();
         frame.add(mediaPanel);
-        favoritListe = media.getFavoritList();
-
-
 
         JPanel topPanel = new JPanel(new GridBagLayout());
         JPanel leftPanel = new JPanel(new BorderLayout());
@@ -518,7 +515,7 @@ public class Display{
 
         for (int i = 0; i < favoritListe.size(); i++) {
             if (favoritListe.get(i).getName().equals(medier.getName())) {
-                favoriteButton.setText("Filmen er i din favoritliste");
+                favoriteButton.setText("Fjern fra din favoritliste");
             }
         }
 
@@ -528,30 +525,19 @@ public class Display{
             public void actionPerformed(ActionEvent e) {
                 JButton button = (JButton)e.getSource();
                 String movieName = button.getName();
-                int removeIndex = -1;
-                if (favoritListe.stream().anyMatch(med -> med.getName().equals(movieName))) {
+                boolean existsInFavoritList = favoritListe.stream().anyMatch(med -> med.getName().equals(movieName));
+                if (existsInFavoritList) {
+                    favoritListe.removeIf(med -> med.getName().equals(movieName));
                     button.setText("Tilføj til favoritliste");
-                    for(int i = 0;i<favoritListe.size();i++){
-                        if(favoritListe.get(i).getName().equals(movieName)){
-                            removeIndex = i;
-                            break;
-                        }
-
-                    }
-                    if(removeIndex > -1)
-                    {
-                        favoritListe.remove(removeIndex);
-                        media.saveFavoritList(favoritListe);
-
-                    }
-                    media.saveFavoritList(favoritListe);
                 } else {
                     favoritListe.add(medier);
-                    media.saveFavoritList(favoritListe);
                     button.setText("Fjern fra favoritliste");
                 }
+                media.saveFavoritList(favoritListe);
             }
         });
+
+
         rightPanel.add(favoriteButton);
         makeDummyLabel(1, rightPanel);
 
@@ -586,8 +572,6 @@ public class Display{
         homeScreen();
         frame.setVisible(true);
     }
-
-
     void showUserScreen() {
         userScreen();
         frame.setVisible(true);
@@ -595,10 +579,6 @@ public class Display{
     void showMediaScene(Medier medier){
         mediaScene(medier);
         frame.setVisible(true);
-    }
-
-    void showFavoriteList() {
-
     }
 
 }
