@@ -25,7 +25,7 @@ public class DataAccess {
                 data.add(s.nextLine());
             }
         }
-        catch(FileNotFoundException e) {
+        catch(NullPointerException | FileNotFoundException e) {
                 System.out.println(e.getMessage());
             }
 

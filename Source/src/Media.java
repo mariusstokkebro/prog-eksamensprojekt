@@ -14,7 +14,7 @@ public class Media {
     List<Film> films;
     List<Serie> series;
     List<Medier> medier;
-    List<Medier> favoritlist;
+    List<Medier> favoritelist;
     DataAccess filmsData;
     DataAccess seriesData;
     DataAccess favoritListData;
@@ -22,7 +22,7 @@ public class Media {
 
         films = new ArrayList<>();
         series = new ArrayList<>();
-        favoritlist = new ArrayList<>();
+        favoritelist = new ArrayList<>();
         filmsData = new DataAccess("film.txt");
         seriesData = new DataAccess("serier.txt");
         favoritListData = new DataAccess("favoritList.txt");
@@ -31,8 +31,7 @@ public class Media {
         filmData();
         serieData();
         mediaData();
-        favoritlist = medier;
-        saveFavoritList();
+        loadFavoritList();
     }
 
     public void filmData() {
@@ -92,18 +91,25 @@ public class Media {
             String year = line[1].trim();
             String genre = line[2];
             double rating = Double.parseDouble(line[3].trim().replace(",", "."));
-            if(line[4]==null){
-                Film film = new Film(name,year,genre,rating);
-                favoritlist.add(film);
-            }
-            else {
+            try {
                 String episodes = line[4];
                 Serie serie = new Serie(name, year, genre, rating, episodes);
-                favoritlist.add(serie);
+                favoritelist.add(serie);
+
             }
+            catch (ArrayIndexOutOfBoundsException e){
+
+                Film film = new Film(name, year, genre, rating);
+                favoritelist.add(film);
+            }
+
+
+
+
+
         }
     }
-    public void saveFavoritList(){
+    public void saveFavoritList(List<Medier> favoritlist){
         String[] genre;
         String genres;
 
@@ -143,7 +149,7 @@ public class Media {
         return medier;
     }
     public List getFavoritList(){
-        return favoritlist;
+        return favoritelist;
     }
 
 }

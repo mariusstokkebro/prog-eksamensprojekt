@@ -45,16 +45,16 @@ public class Display{
 
     int played;
 
-
+    Media media = new Media();
     public Display() {
-        Media media = new Media();
+
 
         //Importing all media to the lists:
         mediaList = media.getMediaList();
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
-
-
+        favoritListe = media.getFavoritList();
+        favoritListe.add(filmList.get(1));
         //Frame settings
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
@@ -466,16 +466,22 @@ public class Display{
         }
 
         JButton favoriteButton = makeButton("Tilføj til favoritliste", 100, 100, 25, Color.black);
+
         favoriteButton.setContentAreaFilled(true);
         favoriteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton button = (JButton)e.getSource();
-                if (favoritListe.contains(medier)) {
-                    button.setText("Filmen er i din favoritliste");
-                } else {
+                boolean isThere =false;
+                for(int i = 0;i<favoritListe.size();i++) {
+                    if (favoritListe.get(i).getName().equals(medier.getName())) {
+                        button.setText("Filmen er i din favoritliste");
+                        isThere =true;
+                    }
+                    }
+                if(!isThere){
                     favoritListe.add(medier);
-
+                    media.saveFavoritList(favoritListe);
                 }
             }
         });
