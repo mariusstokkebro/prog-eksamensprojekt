@@ -9,10 +9,12 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class Display{
+public class Display {
 
     List<Medier> mediaList;
     List<Medier> filmList;
@@ -25,7 +27,7 @@ public class Display{
 
     JPanel mainPanel = new JPanel(new BorderLayout());
 
-    JPanel startPanel = new JPanel(new GridBagLayout());
+    JPanel startPanel = new JPanel(new FlowLayout());
 
     JPanel userScreen = new JPanel(new GridBagLayout());
     JPanel mediaPanel = new JPanel(new BorderLayout());
@@ -37,23 +39,29 @@ public class Display{
 
     int played;
 
+    List<Medier> currentList;
+
+    List<String> selectedGenres;
+
     Media media = new Media();
+
     public Display() {
 
 
-        //Importing all media to the lists:
+        //Importerer alt data til listerne
         mediaList = media.getMediaList();
         filmList = media.getFilmList();
         seriesList = media.getSeriesList();
         favoritListe = media.getFavoritList();
 
-        //Frame settings
+        //Indstillinger til hver frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        currentList = mediaList;
 
-
+        selectedGenres = new ArrayList<>();
     }
 
     JButton makeButton(String text, int height, int width, int fontSize, Color color) {
@@ -66,7 +74,8 @@ public class Display{
         return button;
 
     }
-    JTextField maketextField(int width){
+
+    JTextField maketextField(int width) {
         JTextField textField = new JTextField(width);
 
         textField.addActionListener(new ActionListener() {
@@ -79,16 +88,16 @@ public class Display{
                 int posx = 0;
                 int posy = 2;
                 int posters = 0;
-                for(int i = 0;i<mediaList.size();i++){
+                for (int i = 0; i < mediaList.size(); i++) {
 
-                    if(mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())){
+                    if (mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())) {
                         ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                         JButton poster = new JButton(img);
                         poster.setName(mediaList.get(i).getName());
                         poster.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                JButton but = (JButton)e.getSource();
+                                JButton but = (JButton) e.getSource();
                                 String movieName = but.getName();
                                 for (Medier medier : mediaList) {
                                     if (medier.getName().equals(movieName)) {
@@ -107,21 +116,21 @@ public class Display{
                         posx++;
                         posters++;
                     }
-                    if ((posters % 7 == 0) && posters!=0) {
+                    if ((posters % 7 == 0) && posters != 0) {
                         posx = 0;
                         posy++;
 
                     }
                     String[] genre = mediaList.get(i).getGenre();
-                    for(int u = 0;u<genre.length;u++){
-                        if((Objects.equals(textField.getText().toLowerCase(), genre[u].toLowerCase()))){
+                    for (int u = 0; u < genre.length; u++) {
+                        if ((Objects.equals(textField.getText().toLowerCase(), genre[u].toLowerCase()))) {
                             ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
                             JButton poster = new JButton(img);
                             poster.setName(mediaList.get(i).getName());
                             poster.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    JButton but = (JButton)e.getSource();
+                                    JButton but = (JButton) e.getSource();
                                     String movieName = but.getName();
                                     for (Medier medier : mediaList) {
                                         if (medier.getName().equals(movieName)) {
@@ -149,6 +158,7 @@ public class Display{
         });
         return textField;
     }
+
     void makeAllPosters(List<Medier> list) {
         posterPanel.removeAll();
         posterPanel.revalidate();
@@ -159,7 +169,6 @@ public class Display{
             if ((i % 7 == 0) && i!=0) {
                 posx = 0;
                 posy++;
-
             }
             String movieName = list.get(i).getName();
             ImageIcon img = new ImageIcon(getClass().getResource("/" + movieName + ".jpg"));
@@ -189,6 +198,8 @@ public class Display{
         }
     }
 
+
+
     JScrollPane makeScrollPane() {
         sp = new JScrollPane(posterPanel);
         sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -211,6 +222,7 @@ public class Display{
             ImageIcon imgIcon = new ImageIcon(scaledImg);
             return imgIcon;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Image not found");
         }
         return null;
@@ -222,17 +234,23 @@ public class Display{
         }
     }
 
+
+
+
+
     void homeScreen() {
         //Fjerner alle paneller fra mainPanel og tilføjer mainPanel
         frame.getContentPane().removeAll();
         frame.add(mainPanel);
 
-        //Remove all in mainPanel and update
+        //Fjerner hovedpanelet og opdaterer panelet
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
 
-        //Settings for toppanel, posterpanel and adding them to mainpanel
+        selectedGenres.removeAll(selectedGenres);
+
+        //Indstillinger til topPanel, posterPanel og mainPanel
         topPanel.setBackground(Color.BLACK);
         topPanel.setBorder(null);
         posterPanel.setBackground(Color.BLACK);
@@ -241,7 +259,7 @@ public class Display{
         mainPanel.add(posterPanel, BorderLayout.SOUTH);
 
 
-        //Setting default constraints up
+        //Sætter constraints op
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 0.5;
@@ -257,9 +275,9 @@ public class Display{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //your actions
                 homeScreen();
                 makeAllPosters(mediaList);
+                currentList = mediaList;
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
@@ -275,9 +293,9 @@ public class Display{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //your actions
                 homeScreen();
                 makeAllPosters(filmList);
+                currentList = filmList;
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
@@ -291,9 +309,9 @@ public class Display{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //your actions
                 homeScreen();
                 makeAllPosters(seriesList);
+                currentList = seriesList;
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
@@ -332,10 +350,8 @@ public class Display{
         //Tilføj en scrollpane til mainPanel inde i posterPanel
         mainPanel.add(makeScrollPane());
 
-
         //Tilføj alle plakater til posterPanel
-        makeAllPosters(mediaList);
-
+        makeAllPosters(currentList);
     }
 
     void titleScreen() {
@@ -346,11 +362,11 @@ public class Display{
         //Sæt baggrunden til sort
         startPanel.setBackground(Color.black);
 
-        //Title
+        //Titel tekst
         JLabel title = makeLabel("Popkorn Tid", 40, Color.gray);
         startPanel.add(title);
 
-        //Picture
+        //Billede af logo
         ImageIcon popcornIcon = makeImageIcon("/Popcorn_Time_logo.png", 256, 256);
         startPanel.add(new JLabel(popcornIcon));
 
@@ -364,31 +380,16 @@ public class Display{
         t.start();
     }
 
-    void userScreen() {
-        frame.getContentPane().removeAll();
-        frame.add(userScreen);
-
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-
-
-        userScreen.setBackground(Color.black);
-        JPanel userBorder = new JPanel();
-        userBorder.setBackground(Color.gray);
-
-        ImageIcon plusSign = makeImageIcon("/plussign.png", 150, 150);
-        userBorder.add(new JLabel(plusSign), constraints);
-        userScreen.add(userBorder, constraints);
-        makeLabel("Create new User", 20, Color.gray);
-    }
-
     void mediaScene(Medier medier){
+
+        //Fjerner alle paneler fra Frame, tilføjer mediaPanel og opdaterer.
         frame.getContentPane().removeAll();
         mediaPanel.removeAll();
         mediaPanel.revalidate();
         mediaPanel.repaint();
         frame.add(mediaPanel);
 
+        //Opretter panelerne og sætter layout
         JPanel topPanel = new JPanel(new GridBagLayout());
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel rightPanel = new JPanel();
@@ -400,27 +401,19 @@ public class Display{
         leftPanel.setBackground(Color.BLACK);
         rightPanel.setBackground(Color.BLACK);
 
+        //Sætter constraints op:
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weighty = 0.5;
         constraints.weightx = 1;
         constraints.insets = new Insets(5, 5, 5, 5);
 
+        //Komponenter for topPanel
 
-        JLabel title = makeLabel("Popkorn Tid",25,Color.gray);
-
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-
-
-        topPanel.add(title,constraints);
-        ImageIcon popcornIcon = makeImageIcon("/Popcorn_Time_logo.png",96,96);
-        constraints.gridx = 2;
-        topPanel.add(new JLabel(popcornIcon),constraints);
-        constraints.gridx = 0;
+        //Laver hjem knap
         ImageIcon homeIcon = makeImageIcon("/home.png", 51, 51);
+        constraints.gridx = 0;
         JButton homeBut = new JButton(homeIcon);
-
         homeBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -429,7 +422,19 @@ public class Display{
         });
         topPanel.add(homeBut, constraints);
 
+        //Laver titel tekst
+        JLabel title = makeLabel("Popkorn Tid",25,Color.gray);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        topPanel.add(title,constraints);
 
+        //Laver billede logo
+        ImageIcon popcornIcon = makeImageIcon("/Popcorn_Time_logo.png",96,96);
+        constraints.gridx = 2;
+        topPanel.add(new JLabel(popcornIcon),constraints);
+
+
+        //Laver favoritliste knap
         JButton favoritListeBut = makeButton("Favoritliste", 25, 50, 25, Color.RED);
         favoritListeBut.addActionListener(new ActionListener() {
             @Override
@@ -440,19 +445,31 @@ public class Display{
         constraints.gridx = 3;
         topPanel.add(favoritListeBut, constraints);
 
+        //leftPanel komponenter:
 
+
+        //Billedeplakat
         ImageIcon poster = makeImageIcon("/" + medier.getName() + ".jpg", 420, 627);
         leftPanel.add(new JLabel(poster), BorderLayout.CENTER);
+
+
+        //Komponenter af rightPanel:
+
 
         int fontSize = 25;
         if (medier instanceof Film){
             makeDummyLabel(1, rightPanel);
+
             JLabel movieName = makeLabel("Movie name: " + medier.getName(), fontSize, Color.gray);
             rightPanel.add(movieName);
+
             makeDummyLabel(2, rightPanel);
+
             JLabel movieYear = makeLabel("The movie is from: " + medier.getYear(), fontSize, Color.gray);
             rightPanel.add(movieYear);
+
             makeDummyLabel(2, rightPanel);
+
             String genres = "";
             if (medier.getGenre().length < 2) {
                 genres = "Genre: ";
@@ -465,21 +482,24 @@ public class Display{
                     genres += ",";
                 }
             }
-
             JLabel movieGenres = makeLabel(genres, fontSize, Color.gray);
             rightPanel.add(movieGenres);
+
             makeDummyLabel(2, rightPanel);
+
             JLabel movieRating = makeLabel("Rating: " + medier.getRating(), fontSize, Color.gray);
             rightPanel.add(movieRating);
+
             makeDummyLabel(6, rightPanel);
 
 
         } else if (medier instanceof Serie) {
             makeDummyLabel(1, rightPanel);
+
             JLabel seriesName = makeLabel("Series name: " + medier.getName(), fontSize, Color.gray);
             rightPanel.add(seriesName);
-            makeDummyLabel(2, rightPanel);
 
+            makeDummyLabel(2, rightPanel);
 
             JLabel seriesYear = makeLabel("The series is from: " + medier.getYear(), fontSize, Color.gray);
             rightPanel.add(seriesYear);
@@ -508,13 +528,10 @@ public class Display{
             JLabel serieEpisodes = makeLabel("Episodes: " + medier.getEpisode(), fontSize, Color.gray);
             rightPanel.add(serieEpisodes);
             makeDummyLabel(3, rightPanel);
-
         }
 
+        //Tilføjer knap med tilføj til favoritliste
         JButton favoriteButton = makeButton("Tilføj til favoritliste", 100, 100, 25, Color.black);
-
-
-
         favoriteButton.setName(medier.getName());
 
         for (int i = 0; i < favoritListe.size(); i++) {
@@ -545,6 +562,8 @@ public class Display{
         rightPanel.add(favoriteButton);
         makeDummyLabel(1, rightPanel);
 
+
+        //Tilføjer "play" knap
         JButton playButton = makeButton("Play", 100, 100, 25, Color.BLACK);
         playButton.setContentAreaFilled(true);
         playButton.setBackground(Color.RED);
@@ -564,7 +583,6 @@ public class Display{
             }
         });
         rightPanel.add(playButton);
-
     }
 
     void showTitleScreen() {
@@ -574,10 +592,6 @@ public class Display{
 
     void showMainScreen() {
         homeScreen();
-        frame.setVisible(true);
-    }
-    void showUserScreen() {
-        userScreen();
         frame.setVisible(true);
     }
     void showMediaScene(Medier medier){
@@ -591,8 +605,5 @@ public class Display{
         sp.getViewport().setViewPosition(new Point(0, 0));
         frame.setVisible(true);
     }
-
 }
-
-
 
