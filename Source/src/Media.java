@@ -98,9 +98,6 @@ public class Media {
             }
 
 
-
-
-
         }
     }
     public void saveFavoritList(List<Medier> favoritlist){

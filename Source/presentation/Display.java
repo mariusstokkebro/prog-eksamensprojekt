@@ -1,14 +1,13 @@
 package presentation;
 
-import src.Film;
-import src.Medier;
-import src.Media;
-import src.Serie;
+import src.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,8 +26,6 @@ public class Display {
     JPanel mainPanel = new JPanel(new BorderLayout());
 
     JPanel startPanel = new JPanel(new FlowLayout());
-
-    JPanel userScreen = new JPanel(new GridBagLayout());
     JPanel mediaPanel = new JPanel(new BorderLayout());
     GridBagConstraints constraints = new GridBagConstraints();
 
@@ -84,73 +81,28 @@ public class Display {
                 posterPanel.removeAll();
                 posterPanel.revalidate();
                 posterPanel.repaint();
-                int posx = 0;
-                int posy = 2;
-                int posters = 0;
+                List<Medier> temp = new ArrayList<>();
                 for (int i = 0; i < mediaList.size(); i++) {
-
-                    if (mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())) {
-                        ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
-                        JButton poster = new JButton(img);
-                        poster.setName(mediaList.get(i).getName());
-                        poster.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                JButton but = (JButton) e.getSource();
-                                String movieName = but.getName();
-                                for (Medier medier : mediaList) {
-                                    if (medier.getName().equals(movieName)) {
-                                        showMediaScene(medier);
-                                        break;
-                                    }
-                                }
-
-                            }
-                        });
-                        poster.setBorder(null);
-                        poster.setContentAreaFilled(false);
-                        constraints.gridx = posx;
-                        constraints.gridy = posy;
-                        posterPanel.add(poster, constraints);
-                        posx++;
-                        posters++;
-                    }
-                    if ((posters % 7 == 0) && posters != 0) {
-                        posx = 0;
-                        posy++;
-
-                    }
                     String[] genre = mediaList.get(i).getGenre();
-                    for (int u = 0; u < genre.length; u++) {
-                        if ((Objects.equals(textField.getText().toLowerCase(), genre[u].toLowerCase()))) {
-                            ImageIcon img = new ImageIcon(getClass().getResource("/" + mediaList.get(i).getName() + ".jpg"));
-                            JButton poster = new JButton(img);
-                            poster.setName(mediaList.get(i).getName());
-                            poster.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JButton but = (JButton) e.getSource();
-                                    String movieName = but.getName();
-                                    for (Medier medier : mediaList) {
-                                        if (medier.getName().equals(movieName)) {
-                                            showMediaScene(medier);
-                                            break;
-                                        }
-                                    }
-
-                                }
-                            });
-                            poster.setBorder(null);
-                            poster.setContentAreaFilled(false);
-                            constraints.gridx = posx;
-                            constraints.gridy = posy;
-                            posterPanel.add(poster, constraints);
-                            posx++;
-                            posters++;
+                    if (mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())) {
+                        temp.add(mediaList.get(i));
+                    }
+                    for (int j = 0; j < genre.length; j++) {
+                        if (Objects.equals(textField.getText().toLowerCase(), genre[j].toLowerCase())) {
+                            temp.add(mediaList.get(i));
+                            break;
                         }
                     }
 
-
+                }
+                try {
+                    makeAllPosters(temp);
+                } catch (NullPointerException ex) {
+                    String text = ex.getMessage();
+                    JLabel label = makeLabel(text, 70, Color.gray);
+                    constraints.gridx = 0;
+                    constraints.gridy = 0;
+                    posterPanel.add(label, constraints);
                 }
                 frame.setVisible(true);
             }
@@ -158,48 +110,52 @@ public class Display {
         return textField;
     }
 
-    void makeAllPosters(List<Medier> list) {
+    void makeAllPosters(List<Medier> list){
         posterPanel.removeAll();
         posterPanel.revalidate();
         posterPanel.repaint();
         int posx = 0;
         int posy = 2;
+        if (list.size() == 0) {
+            throw new NullPointerException("The searched media does not exist");
+        } else {
         for (int i = 0; i < list.size(); i++) {
-            if ((i % 7 == 0) && i!=0) {
+            if ((i % 7 == 0) && i != 0) {
                 posx = 0;
                 posy++;
             }
             String movieName = list.get(i).getName();
+            constraints.gridx = posx;
+            constraints.gridy = posy;
             ImageIcon img = null;
             try {
                 img = new ImageIcon(getClass().getResource("/" + movieName + ".jpg"));
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (NullPointerException ex) {
+                JLabel label = makeLabel("       Image not found", 25, Color.gray);
+                posterPanel.add(label, constraints);
             }
-                JButton poster = new JButton(img);
-                poster.setName(movieName);
-                poster.setBorder(null);
-                poster.setContentAreaFilled(false);
-                poster.addActionListener(new ActionListener() {
+            JButton poster = new JButton(img);
+            poster.setName(movieName);
+            poster.setBorder(null);
+            poster.setContentAreaFilled(false);
+            poster.addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JButton but = (JButton) e.getSource();
-                        String movieName = but.getName();
-                        for (Medier medier : mediaList) {
-                            if (medier.getName().equals(movieName)) {
-                                showMediaScene(medier);
-                                break;
-                            }
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton but = (JButton) e.getSource();
+                    String movieName = but.getName();
+                    for (Medier medier : mediaList) {
+                        if (medier.getName().equals(movieName)) {
+                            showMediaScene(medier);
+                            break;
                         }
-
                     }
-                });
-                constraints.gridx = posx;
-                constraints.gridy = posy;
-                posterPanel.add(poster, constraints);
-                posx++;
 
+                }
+            });
+            posterPanel.add(poster, constraints);
+            posx++;
+        }
         }
     }
 
@@ -226,8 +182,7 @@ public class Display {
             Image scaledImg = img.getScaledInstance(width, height, 4);
             ImageIcon imgIcon = new ImageIcon(scaledImg);
             return imgIcon;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
             System.out.println("Image not found");
         }
         return null;
@@ -280,9 +235,8 @@ public class Display {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                homeScreen();
-                makeAllPosters(mediaList);
                 currentList = mediaList;
+                showMainScreen();
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
@@ -298,9 +252,8 @@ public class Display {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                homeScreen();
-                makeAllPosters(filmList);
                 currentList = filmList;
+                showMainScreen();
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
@@ -314,9 +267,8 @@ public class Display {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                homeScreen();
-                makeAllPosters(seriesList);
                 currentList = seriesList;
+                showMainScreen();
                 sp.getViewport().setViewPosition(new Point(0, 0));
                 frame.setVisible(true);
             }
