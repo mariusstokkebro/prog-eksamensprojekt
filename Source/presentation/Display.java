@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -171,30 +170,36 @@ public class Display {
                 posy++;
             }
             String movieName = list.get(i).getName();
-            ImageIcon img = new ImageIcon(getClass().getResource("/" + movieName + ".jpg"));
-            JButton poster = new JButton(img);
-            poster.setName(movieName);
-            poster.setBorder(null);
-            poster.setContentAreaFilled(false);
-            poster.addActionListener(new ActionListener() {
+            ImageIcon img = null;
+            try {
+                img = new ImageIcon(getClass().getResource("/" + movieName + ".jpg"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+                JButton poster = new JButton(img);
+                poster.setName(movieName);
+                poster.setBorder(null);
+                poster.setContentAreaFilled(false);
+                poster.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton but = (JButton)e.getSource();
-                    String movieName = but.getName();
-                    for (Medier medier : mediaList) {
-                        if (medier.getName().equals(movieName)) {
-                            showMediaScene(medier);
-                            break;
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JButton but = (JButton) e.getSource();
+                        String movieName = but.getName();
+                        for (Medier medier : mediaList) {
+                            if (medier.getName().equals(movieName)) {
+                                showMediaScene(medier);
+                                break;
+                            }
                         }
-                    }
 
-                }
-            });
-            constraints.gridx = posx;
-            constraints.gridy = posy;
-            posterPanel.add(poster, constraints);
-            posx++;
+                    }
+                });
+                constraints.gridx = posx;
+                constraints.gridy = posy;
+                posterPanel.add(poster, constraints);
+                posx++;
+
         }
     }
 
@@ -413,6 +418,7 @@ public class Display {
         //Laver hjem knap
         ImageIcon homeIcon = makeImageIcon("/home.png", 51, 51);
         constraints.gridx = 0;
+        constraints.gridy = 0;
         JButton homeBut = new JButton(homeIcon);
         homeBut.addActionListener(new ActionListener() {
             @Override
@@ -425,7 +431,6 @@ public class Display {
         //Laver titel tekst
         JLabel title = makeLabel("Popkorn Tid",25,Color.gray);
         constraints.gridx = 1;
-        constraints.gridy = 0;
         topPanel.add(title,constraints);
 
         //Laver billede logo
