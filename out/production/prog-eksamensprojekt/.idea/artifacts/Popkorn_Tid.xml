@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Popkorn Tid">
+    <output-path>$PROJECT_DIR$/out/artifacts/Popkorn_Tid</output-path>
+    <root id="archive" name="prog-eksamensprojekt.jar">
+      <element id="module-output" name="prog-eksamensprojekt" />
+    </root>
+  </artifact>
+</component>
