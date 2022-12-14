@@ -297,7 +297,13 @@ public class Display {
         favoritListBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showFavoritListe();
+                try {
+                    showFavoritListe();
+                } catch (NullPointerException ex) {
+                    JLabel label = makeLabel("Favoritlisten er tom", 70, Color.gray);
+                    posterPanel.add(label, constraints);
+                }
+
             }
         });
         constraints.gridx = 5;
@@ -396,7 +402,13 @@ public class Display {
         favoritListeBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showFavoritListe();
+                try {
+                    showFavoritListe();
+                } catch (NullPointerException ex) {
+                    JLabel label = makeLabel("Favoritlisten er tom", 70, Color.gray);
+                    posterPanel.add(label, constraints);
+                }
+
             }
         });
         constraints.gridx = 3;
