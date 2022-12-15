@@ -513,13 +513,27 @@ public class Display {
         favoriteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JButton button = (JButton)e.getSource();
+                //Tjekker om filmen er i listen
+                JButton button = (JButton) e.getSource();
                 String movieName = button.getName();
-                boolean existsInFavoritList = favoritListe.stream().anyMatch(med -> med.getName().equals(movieName));
-                if (existsInFavoritList) {
-                    favoritListe.removeIf(med -> med.getName().equals(movieName));
-                    button.setText("Tilføj til favoritliste");
+                boolean isThere = false;
+                for (Medier med : favoritListe) {
+                    if (med.getName().equals(movieName)) {
+                        isThere = true;
+                        break;
+                    }
+                }
+                if (isThere) {
+                    //Fjern filmen fra favoritlisten
+                    for (int i = 0; i < favoritListe.size(); i++) {
+                        if (favoritListe.get(i).getName().equals(movieName)) {
+                            favoritListe.remove(i);
+                            button.setText("Tilføj til favoritliste");
+                            break;
+                        }
+                    }
                 } else {
+                    //Tilføj
                     favoritListe.add(medier);
                     button.setText("Fjern fra favoritliste");
                 }
@@ -527,32 +541,31 @@ public class Display {
             }
         });
 
+                rightPanel.add(favoriteButton);
+                makeDummyLabel(1, rightPanel);
 
-        rightPanel.add(favoriteButton);
-        makeDummyLabel(1, rightPanel);
 
+                //Tilføjer "play" knap
+                JButton playButton = makeButton("Play", 100, 100, 25, Color.BLACK);
+                playButton.setContentAreaFilled(true);
+                playButton.setBackground(Color.RED);
+                played = 1;
 
-        //Tilføjer "play" knap
-        JButton playButton = makeButton("Play", 100, 100, 25, Color.BLACK);
-        playButton.setContentAreaFilled(true);
-        playButton.setBackground(Color.RED);
-        played = 1;
-
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JButton button = (JButton)e.getSource();
-                if (played == 0) {
-                    button.setBackground(Color.red);
-                    played++;
-                } else {
-                    button.setBackground(Color.green);
-                    played--;
-                }
+                playButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button = (JButton) e.getSource();
+                        if (played == 0) {
+                            button.setBackground(Color.red);
+                            played++;
+                        } else {
+                            button.setBackground(Color.green);
+                            played--;
+                        }
+                    }
+                });
+                rightPanel.add(playButton);
             }
-        });
-        rightPanel.add(playButton);
-    }
 
     void showTitleScreen() {
         titleScreen();
