@@ -7,7 +7,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +36,7 @@ public class Display {
 
     List<Medier> currentList;
 
-    List<String> selectedGenres;
+
 
     Media media = new Media();
 
@@ -57,7 +56,6 @@ public class Display {
 
         currentList = mediaList;
 
-        selectedGenres = new ArrayList<>();
     }
 
     JButton makeButton(String text, int height, int width, int fontSize, Color color) {
@@ -208,7 +206,6 @@ public class Display {
         mainPanel.revalidate();
         mainPanel.repaint();
 
-        selectedGenres.removeAll(selectedGenres);
 
         //Indstillinger til topPanel, posterPanel og mainPanel
         topPanel.setBackground(Color.BLACK);
