@@ -86,7 +86,7 @@ public class Display {
                         temp.add(mediaList.get(i));
                     }
                     for (int j = 0; j < genre.length; j++) {
-                        if (Objects.equals(textField.getText().toLowerCase(), genre[j].toLowerCase())) {
+                        if (Objects.equals(textField.getText().toLowerCase(), genre[j].toLowerCase().trim())) {
                             temp.add(mediaList.get(i));
                             break;
                         }
