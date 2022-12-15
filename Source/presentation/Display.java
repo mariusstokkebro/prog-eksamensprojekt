@@ -13,9 +13,9 @@ import java.util.Objects;
 
 public class Display {
 
-    List<Medier> mediaList;
-    List<Medier> filmList;
-    List<Medier> seriesList;
+    List<Media> mediaList;
+    List<Media> filmList;
+    List<Media> seriesList;
 
     JFrame frame = new JFrame("Popcorn Tid");
     JPanel topPanel = new JPanel(new GridBagLayout());
@@ -30,24 +30,24 @@ public class Display {
 
     JScrollPane sp;
 
-    List<Medier> favoritListe;
+    List<Media> favoritListe;
 
     int played;
 
-    List<Medier> currentList;
+    List<Media> currentList;
 
 
 
-    Media media = new Media();
+    MediaReader mediaReader = new MediaReader();
 
     public Display() {
 
 
         //Importerer alt data til listerne
-        mediaList = media.getMediaList();
-        filmList = media.getFilmList();
-        seriesList = media.getSeriesList();
-        favoritListe = media.getFavoritList();
+        mediaList = mediaReader.getMediaList();
+        filmList = mediaReader.getFilmList();
+        seriesList = mediaReader.getSeriesList();
+        favoritListe = mediaReader.getFavoritList();
 
         //Indstillinger til hver frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -55,7 +55,7 @@ public class Display {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         currentList = mediaList;
-
+        
     }
 
     JButton makeButton(String text, int height, int width, int fontSize, Color color) {
@@ -79,7 +79,7 @@ public class Display {
                 posterPanel.removeAll();
                 posterPanel.revalidate();
                 posterPanel.repaint();
-                List<Medier> temp = new ArrayList<>();
+                List<Media> temp = new ArrayList<>();
                 for (int i = 0; i < mediaList.size(); i++) {
                     String[] genre = mediaList.get(i).getGenre();
                     if (mediaList.get(i).getName().toLowerCase().contains(textField.getText().toLowerCase())) {
@@ -108,7 +108,7 @@ public class Display {
         return textField;
     }
 
-    void makeAllPosters(List<Medier> list){
+    void makeAllPosters(List<Media> list){
         posterPanel.removeAll();
         posterPanel.revalidate();
         posterPanel.repaint();
@@ -142,9 +142,9 @@ public class Display {
                 public void actionPerformed(ActionEvent e) {
                     JButton but = (JButton) e.getSource();
                     String movieName = but.getName();
-                    for (Medier medier : mediaList) {
-                        if (medier.getName().equals(movieName)) {
-                            showMediaScene(medier);
+                    for (Media media : mediaList) {
+                        if (media.getName().equals(movieName)) {
+                            showMediaScene(media);
                             break;
                         }
                     }
@@ -205,7 +205,7 @@ public class Display {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-
+        
 
         //Indstillinger til topPanel, posterPanel og mainPanel
         topPanel.setBackground(Color.BLACK);
@@ -224,8 +224,8 @@ public class Display {
         constraints.insets = new Insets(5, 5, 5, 5);
 
 
-        //Medier knap
-        JButton but1 = makeButton("Medier", 50, 25, 25, Color.red);
+        //Media knap
+        JButton but1 = makeButton("Media", 50, 25, 25, Color.red);
         constraints.gridx = 0;
         constraints.gridy = 0;
         but1.addActionListener(new ActionListener() {
@@ -340,7 +340,7 @@ public class Display {
         t.start();
     }
 
-    void mediaScene(Medier medier){
+    void mediaScene(Media media){
 
         //Fjerner alle paneler fra Frame, tilføjer mediaPanel og opdaterer.
         frame.getContentPane().removeAll();
@@ -415,7 +415,7 @@ public class Display {
 
 
         //Billedeplakat
-        ImageIcon poster = makeImageIcon("/" + medier.getName() + ".jpg", 420, 627);
+        ImageIcon poster = makeImageIcon("/" + media.getName() + ".jpg", 420, 627);
         leftPanel.add(new JLabel(poster), BorderLayout.CENTER);
 
 
@@ -423,28 +423,28 @@ public class Display {
 
 
         int fontSize = 25;
-        if (medier instanceof Film){
+        if (media instanceof Film){
             makeDummyLabel(1, rightPanel);
 
-            JLabel movieName = makeLabel("Movie name: " + medier.getName(), fontSize, Color.gray);
+            JLabel movieName = makeLabel("Movie name: " + media.getName(), fontSize, Color.gray);
             rightPanel.add(movieName);
 
             makeDummyLabel(2, rightPanel);
 
-            JLabel movieYear = makeLabel("The movie is from: " + medier.getYear(), fontSize, Color.gray);
+            JLabel movieYear = makeLabel("The movie is from: " + media.getYear(), fontSize, Color.gray);
             rightPanel.add(movieYear);
 
             makeDummyLabel(2, rightPanel);
 
             String genres = "";
-            if (medier.getGenre().length < 2) {
+            if (media.getGenre().length < 2) {
                 genres = "Genre: ";
             } else {
                 genres = "Genres: ";
             }
-            for (int i = 0; i < medier.getGenre().length; i++) {
-                genres += medier.getGenre()[i];
-                if (medier.getGenre().length > i+1) {
+            for (int i = 0; i < media.getGenre().length; i++) {
+                genres += media.getGenre()[i];
+                if (media.getGenre().length > i+1) {
                     genres += ",";
                 }
             }
@@ -453,33 +453,33 @@ public class Display {
 
             makeDummyLabel(2, rightPanel);
 
-            JLabel movieRating = makeLabel("Rating: " + medier.getRating(), fontSize, Color.gray);
+            JLabel movieRating = makeLabel("Rating: " + media.getRating(), fontSize, Color.gray);
             rightPanel.add(movieRating);
 
             makeDummyLabel(6, rightPanel);
 
 
-        } else if (medier instanceof Serie) {
+        } else if (media instanceof Serie) {
             makeDummyLabel(1, rightPanel);
 
-            JLabel seriesName = makeLabel("Series name: " + medier.getName(), fontSize, Color.gray);
+            JLabel seriesName = makeLabel("Series name: " + media.getName(), fontSize, Color.gray);
             rightPanel.add(seriesName);
 
             makeDummyLabel(2, rightPanel);
 
-            JLabel seriesYear = makeLabel("The series is from: " + medier.getYear(), fontSize, Color.gray);
+            JLabel seriesYear = makeLabel("The series is from: " + media.getYear(), fontSize, Color.gray);
             rightPanel.add(seriesYear);
             makeDummyLabel(2, rightPanel);
 
             String genres = "";
-            if (medier.getGenre().length < 2) {
+            if (media.getGenre().length < 2) {
                 genres = "Genre: ";
             } else {
                 genres = "Genres: ";
             }
-            for (int i = 0; i < medier.getGenre().length; i++) {
-                genres += medier.getGenre()[i];
-                if (medier.getGenre().length > i+1) {
+            for (int i = 0; i < media.getGenre().length; i++) {
+                genres += media.getGenre()[i];
+                if (media.getGenre().length > i+1) {
                     genres += ",";
                 }
             }
@@ -487,21 +487,21 @@ public class Display {
             rightPanel.add(serieGenres);
             makeDummyLabel(2, rightPanel);
 
-            JLabel serieRating = makeLabel("Rating: " + medier.getRating(), fontSize, Color.gray);
+            JLabel serieRating = makeLabel("Rating: " + media.getRating(), fontSize, Color.gray);
             rightPanel.add(serieRating);
             makeDummyLabel(2, rightPanel);
 
-            JLabel serieEpisodes = makeLabel("Episodes: " + medier.getEpisode(), fontSize, Color.gray);
+            JLabel serieEpisodes = makeLabel("Episodes: " + media.getEpisode(), fontSize, Color.gray);
             rightPanel.add(serieEpisodes);
             makeDummyLabel(3, rightPanel);
         }
 
         //Tilføjer knap med tilføj til favoritliste
         JButton favoriteButton = makeButton("Tilføj til favoritliste", 100, 100, 25, Color.black);
-        favoriteButton.setName(medier.getName());
+        favoriteButton.setName(media.getName());
 
         for (int i = 0; i < favoritListe.size(); i++) {
-            if (favoritListe.get(i).getName().equals(medier.getName())) {
+            if (favoritListe.get(i).getName().equals(media.getName())) {
                 favoriteButton.setText("Fjern fra din favoritliste");
             }
         }
@@ -514,7 +514,7 @@ public class Display {
                 JButton button = (JButton) e.getSource();
                 String movieName = button.getName();
                 boolean isThere = false;
-                for (Medier med : favoritListe) {
+                for (Media med : favoritListe) {
                     if (med.getName().equals(movieName)) {
                         isThere = true;
                         break;
@@ -531,10 +531,10 @@ public class Display {
                     }
                 } else {
                     //Tilføj
-                    favoritListe.add(medier);
+                    favoritListe.add(media);
                     button.setText("Fjern fra favoritliste");
                 }
-                media.saveFavoritList(favoritListe);
+                mediaReader.saveFavoritList(favoritListe);
             }
         });
 
@@ -573,8 +573,8 @@ public class Display {
         homeScreen();
         frame.setVisible(true);
     }
-    void showMediaScene(Medier medier){
-        mediaScene(medier);
+    void showMediaScene(Media media){
+        mediaScene(media);
         frame.setVisible(true);
     }
 

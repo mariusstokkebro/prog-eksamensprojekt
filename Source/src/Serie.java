@@ -1,6 +1,6 @@
 package src;
 
-public class Serie  extends Medier{
+public class Serie  extends Media{
    private String episode;
 
 
